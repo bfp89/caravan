@@ -1,0 +1,152 @@
+import random
+
+money = 100
+
+
+#Heads or Tails
+def coinFlip (call, bet):
+
+  #Can you afford it?
+  if bet > money:
+    raise Exception("Ooo sorry, looks like you don't have enough for that bet!")
+  print("Welcome to Heads or Tails! \nYou called: " + call + "\nYou bet: £" + str(bet))
+  num = random.randint(1, 2)
+
+  #The flip
+  if num == 1:
+    print("\nThe result is... Heads!")
+  elif num == 2:
+    print("\nThe result is... Tails!")
+
+  #The result
+  if ((call == "Heads" or call == "heads") and num == 1) or ((call == "Tails" or call == "tails") and num == 2):
+    print("Congratulations! You have won: £" + str(bet) + "!")
+    return bet
+  else:
+    print("Oh No! You have lost: £" + str(bet) +"...")
+    return -bet
+  
+money += coinFlip("tails", 10)
+print("\n\nYour total money available now is £"+ str(money))
+
+
+#New game - Cho-Han
+def diceRoll (guess, bet):
+  print("\n\nMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMW")
+  #Can you afford it?
+  if bet > money:
+    raise Exception("Ooo sorry, looks like you don't have enough for that bet!")
+  print("Welcome to Cho-Han! \nYour guess is: " + guess + "\nYou bet: £" + str(bet))
+
+  dice1 = random.randint(1, 6)
+  dice2 = random.randint(1, 6)
+  total = dice1 + dice2
+  #The roll
+  print("\nDice one rolled a... " + str(dice1) + ", and dice two rolled a... " + str(dice2) + "." + "\nThe total of the two is " + str(total) + ".")
+  #The result
+  if total % 2 == 0 and (guess == "Even" or guess == "even"):
+    print("\nCongratulations! The total is even, you have won: £" + str(bet) + "!")
+    return bet
+  elif total % 2 == 1 and (guess == "Odd" or guess == "odd"):
+    print("\nCongratulations! The total is odd, you have won: £" + str(bet) + "!")
+    return bet
+  elif total % 2 == 0 and (guess == "Odd" or guess == "odd"):
+    print("\nOoo too bad! The total is even, you have lost: £" + str(bet) + "!")
+    return -bet
+  else:
+    print("\nOoo too bad! The total is odd, you have lost: £" + str(bet) + "!" + "\nBetter luck next time!")
+    return -bet
+
+money += diceRoll("Even", 40)
+print("\n\nYour total money available now is £"+ str(money))
+
+
+
+#New game - High Card Draw
+def highCardDraw(bet):
+  print("\n\nMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMW")
+  #Can you afford it?
+  if bet > money:
+   raise Exception("Ooo sorry, looks like you don't have enough for that bet!")
+  print("Welcome to High Card Draw! Where the highest card wins. Ace is high in this game. \nYou bet: £" + str(bet))
+
+  #Your card
+  draw1 = random.randint(2, 14)
+  draw2 = random.randint(2, 14)
+  if draw1 in range(2, 10):
+    print("\nYour card is: " + str(draw1))
+  elif draw1 == 11:
+    print("\nYour card is: A Jack")
+  elif draw1 == 12:
+    print("\nYour card is: A Queen")
+  elif draw1 == 13:
+    print("\nYour card is: A King")
+  else:
+    print("\nYour card is: An Ace")
+
+  #House card
+  if draw2 in range(2,10):
+    print("The house draws: " + str(draw2))
+  elif draw2 == 11:
+    print("The house draws: A Jack")
+  elif draw2 == 12:
+    print("The house draws: A Queen")
+  elif draw2 == 13:
+    print("The house draws: A King")
+  else:
+    print("The house draws: An Ace")
+
+  #Results
+  if draw1 > draw2:
+    print("\nCongratulations! You have the higher card and have won: £" + str(bet))
+    return bet
+  elif draw2 > draw1:
+    print("\nOh no! You have the lower card. You lose: £" + str(bet) + "\nBetter luck next time!")
+    return -bet
+  else:
+    print("\nIt's a tie! All bets are returned.")
+    return 0
+
+money += highCardDraw(10) 
+("\n\nYour total money available now is £"+ str(money))
+
+
+#Roulette
+def roulette(guess, bet):
+  print("\n\nMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMWMW")
+  #Can you afford it?
+  if bet > money:
+    raise Exception("Oh sorry, looks like you don't have enough for that bet!")
+  print("Welcome to Roulette! The ultimate game of chance! \n\nPlease select a specific number, or make your choice between 'Odd' or 'Even' \nPlace your bets...")
+  print("\nYou have selected..." + str(guess))
+  print("Your bet is: £" + str(bet))
+
+  #The spin
+  spin = random.randint(0, 36)
+  numberWinnings = bet * 36
+  print("\nHere we go... RATATATATATATA...TAT....TAT......TAT............It's: " + str(spin) + "!")
+
+  #The Result
+  if (spin % 2 == 0 and (guess == "Even" or guess == "even")) or (spin % 2 == 1 and (guess == "Odd" or guess == "odd")):
+    print("\nCongratulations! You guessed correctly and win £" + str(bet))
+    return bet
+  elif (spin % 2 == 0 and guess == "Odd") or (spin % 2 == 1 and guess == "Even"):
+    print("\nBetter luck next time! You lost this round... ")
+    return -bet
+
+  #0
+  elif spin == 0 and guess == ("Even" or "Odd"):
+    print("\nBetter luck next time! You lost this round... ")
+    return -bet
+
+  #number selected
+  if guess == spin:
+    print("\nWow, what a guess! You guessed the correct number, and have won: £" + str(numberWinnings))
+    return bet * 36
+  elif guess != spin:
+    print("\nBetter luck next time! You lost this round...")
+    return -bet
+
+
+money += roulette(1, 10)
+print("\n\nYour total money available now is £"+ str(money))
