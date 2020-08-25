@@ -1,0 +1,117 @@
+class Pokemon:
+  def __init__(self, name, type, curr_health, level = 2):
+    self.name = name
+    self.type = type
+    self.max_health = 100
+    self.curr_health = curr_health
+    self.level = level
+    self.K_Oed = False
+  
+  def __repr__(self):
+    return "This {name} is level {level} and has {curr_health} health remiaining. {name} is a {type} type Pokemon". format(name = self.name, level = self.level, curr_health = self.curr_health, type = self.type)
+
+#Knocked out
+  def K_O(self):
+    self.K_Oed = True
+    print("{name} was knocked out!".format(name = self.name))
+
+#Restore health
+  def restore_health(self, restored):
+    self.curr_health += restored
+    if self.curr_health >= self.max_health:
+      self.curr_health = self.max_health
+    print("{name} gained {restored} health!".format(name = self.name, restored = restored))
+
+#Lose health
+  def lose_health(self, lost):
+    self.curr_health -= lost
+    if self.curr_health <= 0:
+      self.curr.health = 0
+      self.K_O()
+    else:
+      print("Your {name} now has {curr_health} health remaining!".format(name = self.name, curr_health = self.curr_health))
+
+#Attack
+  def attack(self, rival):
+    if (self.type == "Grass" and rival.type == "Water") or (self.type == "Water" and rival.type == "Fire") or (self.type == "Fire" and rival.type == "Grass"):
+      print("{name} attacked {rival} and caused {damage} damage.".format(name = self.name, rival = rival.name, damage = self.level * 2))
+      print("It's super effective!")
+      rival.lose_health(self.level * 2)
+
+    elif self.type == rival.type:
+      print("{name} attacked {rival} and caused {damage} damage.".format(name = self.name, rival = rival.name, damage = self.level * 2))
+      rival.lose_health(self.level)
+
+    elif self.type == "electric" or rival.type == "electric":
+      print("{name} attacked {rival} and caused {damage} damage.".format(name = self.name, rival = rival.name, damage = self.level * 2))
+      rival.lose_health(self.level)  
+
+    elif (self.type == "Water" and rival.type == "Grass") or (self.type == "Grass" and rival.type == "Fire") or (self.type == "Fire" and rival.type == "Water"):
+      print("{name} attacked {rival} and caused {damage} damage.".format(name = self.name, rival = other_pokemon.name, damage = self.level * 0.5))
+      print("It's not very effective!")
+
+class Trainer:
+  def __init__(self, pokemon_squad, potions, name):
+    self.squad = pokemon_squad
+    self.potions = potions
+    self.name = name
+    self.active_pokemon = 0
+  def __repr__(self):
+    print("The rival trainer {name} has these available pokemon:".format(name = self.name))
+    for pokemon in self.squad:
+      print(pokemon)
+    return "The active pokemon is {name}".format(name = self.squad[self.active_pokemon].name)
+
+#Heal Pokemon
+  def heal_pokemon(self):
+    if self.potions > 0:
+      print("You used a potion on {name}, it regained 20 health!".format(name = self.squad[self.active_pokemon].name))
+      self.squad[self.active_pokemon].restore_health(20)
+    else:
+      print("Out of potions!")
+
+  #Attack
+  def attack_rival_trainer(self, rival_trainer):
+    my_pokemon = self.squad[self.active_pokemon]
+    their_pokemon = rival_trainer.squad[rival_trainer.active_pokemon]
+    my_pokemon.attack(their_pokemon)
+    print("You attack your rival!")
+
+  #Switch Pokemon
+  def switch_pokemon(self, next_pokemon):
+    if self.squad[next_pokemon].K_Oed:
+      print("{name} is knocked out, and can't switch!".format(name = self.squad[next_pokemon].name))
+    elif next_pokemon == self.active_pokemon:
+      print("{name} is already your active pokemon".format(name = self.squad[next_pokemon].name))
+    else:
+      self.active_pokemon = next_pokemon
+      print("Go {name}, I choose you!".format(name = self.squad[self.active_pokemon].name))
+
+#Pokemon Squad
+a = Pokemon("Squirtle", "water", 100, 5)
+b = Pokemon("Bulbasaur", "grass", 100, 6)
+c = Pokemon("Charmander", "fire", 100, 4)
+d = Pokemon("Pikachu", "electric", 100, 8)
+e = Pokemon("Houndoom", "fire", 100, 8)
+f = Pokemon("Flareon", "fire", 100, 4)
+g = Pokemon("Victory Bell", "grass", 100, 9)
+h = Pokemon("Staryu", "water", 100, 3)
+
+#Trainers
+Trainer_Hannah = Trainer([a, b, c, d], 6, "Hannah")
+Trainer_Ben = Trainer([e, f, g, h], 4, "Ben")
+   
+
+#Tests
+Trainer_Hannah.attack_rival_trainer(Trainer_Ben)
+
+Trainer_Ben.attack_rival_trainer(Trainer_Hannah)
+
+Trainer_Ben.heal_pokemon()
+
+Trainer_Hannah.attack_rival_trainer(Trainer_Ben)
+
+Trainer_Ben.switch_pokemon(3)
+
+Trainer_Ben.switch_pokemon(1)  
+    
