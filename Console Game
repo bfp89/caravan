@@ -1,0 +1,71 @@
+using System;
+
+namespace ConsoleGame
+{
+  class Game : SuperGame
+  {
+   public new static void UpdatePosition(string keyPressed, out int xChange, out int yChange) {
+    switch (keyPressed)
+      {
+        case "DownArrow":
+            xChange = 0;
+            yChange = 1;
+            break;
+        case "UpArrow":
+            xChange = 0;
+            yChange = -1;
+            break;
+        case "LeftArrow":
+            xChange = -1;
+            yChange = 0;
+            break;
+        case "RightArrow":
+            xChange = 1;
+            yChange = 0;
+            break;
+        default:
+        	  xChange = 0;
+        	  yChange = 1;
+        	  break;      
+        }
+    }
+
+    public new static char UpdateCursor(string keyPressed) {
+      switch (keyPressed) {
+         case "DownArrow":
+            return 'v';
+            break;
+        case "UpArrow":
+            return '^';
+            break;
+        case "LeftArrow":
+            return '<';
+            break;
+        case "RightArrow":
+            return '>';
+            break;
+        default:
+        	  return '>';
+        	  break;
+      }
+    }
+
+    public new static int KeepInBounds(int xY, int maxVal) {
+      if (xY > maxVal) {
+        return 0;
+      } else if (xY <= 0) {
+        return maxVal;
+      } else {
+        return xY;
+      }
+    }
+    
+    public new static bool DidScore(int xChar, int yChar, int xFruit, int yFruit) {
+      if ((xChar == xFruit) && (yChar == yFruit)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+}
