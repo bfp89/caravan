@@ -1,5 +1,5 @@
 //The Map
-var mymap = L.map('mapid').fitWorld();
+var map = L.map('mapid').fitWorld();
 
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
 attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -8,22 +8,22 @@ id: 'mapbox/streets-v11',
 tileSize: 512,
 zoomOffset: -1,
 accessToken: 'pk.eyJ1IjoiYmVucDExIiwiYSI6ImNrZnM2ZGdzZTA2OHQyc2xyZjl6YWppancifQ.AeFqdkNbl4h_JnvtqBEhfw'
-}).addTo(mymap);
+}).addTo(map);
 
 
-//Geolocator
-mymap.locate({setView: true, maxZoom: 16});
+//Navigator
+map.locate({setView: true, maxZoom: 16});
 
 function onLocationFound(e) {
     var radius = e.accuracy;
 
-    L.marker(e.latlng).addTo(mymap)
+    L.marker(e.latlng).addTo(map)
         .bindPopup("You are within " + radius + " meters from this point").openPopup();
 
-    L.circle(e.latlng, radius).addTo(mymap);
+    L.circle(e.latlng, radius).addTo(map);
 };
 
-mymap.on('locationfound', onLocationFound);
+map.on('locationfound', onLocationFound);
 
 function onLocationError(e) {
     alert(e.message);
@@ -32,34 +32,42 @@ function onLocationError(e) {
 map.on('locationerror', onLocationError);
 
 //Button for API info 
-$('#showWeather').click(function() {
 
-    $.ajax({
-        url: "Gazetteer.php",
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            name: $('#whichCountry').val()
-        },
-        success: function(result) {
+var myPopup = L.popup().setContent(
+    'Hi Hannah!'
+);
 
-            console.log(result);
+L.easyButton('fa-globe', function(btn, map){
+   myPopup.setLatLng(map.getCenter()).openOn(map);
+}).addTo(map);
 
-            if (result.status.name == "ok") {
+/*L.easyButton('fa-globe fa-lg', function(btn, map){
 
-                $('#weather').html(result['data'][0]['weather.main']);
-                $('#temperature').html(result['data'][0]['main.temp']);
-                $('#feelsLike').html(result['data'][0]['main.feels_like']);
-                $('#txtContinentCode').html(result['data'][0]['continentCode']);
-
-            }
-        
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            //error code
-        }
-    }); 
+    
 
 
+}).addTo(mymap);*/
+
+//Select country - function
+    $(document).ready(function() {
+
+        $.ajax({
+            url: "libs/php/selectCountry.php",
+            type: 'POST',
+            dataType: 'json',
+            
+            success: function(result) {
+
+                console.log(result);
+            },
+            
+        });
+    });
+
+
+//Select Country - style
+$(document).ready(function() {
+    $('.js-example-basic-single').select2();
 });
+
 
