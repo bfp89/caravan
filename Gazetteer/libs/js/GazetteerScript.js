@@ -33,7 +33,7 @@ map.on('locationerror', onLocationError);
 
 //Button for API info 
 
-var myPopup = L.popup().setContent(
+/*var myPopup = L.popup().setContent(
     'Hi Hannah!'
 );
 
@@ -46,27 +46,57 @@ L.easyButton('fa-globe', function(btn, map){
     
 
 
-}).addTo(mymap);*/
+}).addTo(map);*/
 
 //Select country - function
-    $(document).ready(function() {
+ 
 
-        $.ajax({
-            url: "libs/php/selectCountry.php",
-            type: 'POST',
-            dataType: 'json',
-            
-            success: function(result) {
+$(document).ready(function() {
 
-                console.log(result);
-            },
+    
+
+    $.ajax({
+        url: "libs/php/selectCountry.php",
+        type: 'POST',
+        dataType: 'json',
+        
+        success: function(result) {
+
+            console.log(result);
+
+            $('#whichCountry').html('');
+
+
+
+            $.each(result.data, function(index) {
             
-        });
+                
+            
+                $('#whichCountry').append($("<option>", {
+            
+                    value: result.data[index].code,
+            
+                    text: result.data[index].name
+            
+                })); 
+            
+            }); 
+        },
+        
     });
 
+    $.ajax({
+        url: "libs/php/countryBorders.php",
+        type: 'POST',
+        dataType: 'json',
+        
+        success: function(result) {
+            console.log(result);
 
-//Select Country - style
-$(document).ready(function() {
-    $('.js-example-basic-single').select2();
+            $('#whichCountry').change()
+        },
+    });
+
 });
 
+L.geoJSON().addTo(map);
