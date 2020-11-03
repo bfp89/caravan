@@ -4,26 +4,18 @@
 
     $countryData = json_decode(file_get_contents("countryBorders.geo.json"), true);
 
-    $country = [];
+    $border = null;
 
     foreach ($countryData['features'] as $feature) {
 
-        $temp = null;
+        if ($feature["properties"]['iso_a2'] == $_REQUEST['localhost\Gazetteer\libs\php\countryBorders.php?iso_a2=GB']) {
+        
+        $border = $feature;
 
-        $temp['code'] = $feature["properties"]['iso_a2'];
+        }
+    };
 
-        array_push($country, $temp);
-
-    }
-
-    usort($country, function ($item1, $item2) {
-
-    return $item1['name'] <=> $item2['name'];
-
-    });
-
-
-
+    
     $output['status']['code'] = "200";
 
     $output['status']['name'] = "ok";
@@ -32,7 +24,7 @@
 
     $output['status']['executedIn'] = intval((microtime(true) - $executionStartTime) * 1000) . " ms";
 
-    $output['data'] = $country;
+    $output['data'] = $border;
 
     
 
