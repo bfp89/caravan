@@ -49,7 +49,8 @@ L.easyButton('fa-globe', function(btn, map){
 }).addTo(map);*/
 
 //Select country - function
- 
+
+var border;
 
 $(document).ready(function() {
 
@@ -84,19 +85,43 @@ $(document).ready(function() {
         },
         
     });
+    $('#whichCountry').change(function() {
+                
+        $.ajax({
+            url: "libs/php/countryBorders.php",
+            type: 'POST',
+            dataType: 'json',
+            
+            success: function(result) {
+                console.log(result);
 
-    $.ajax({
-        url: "libs/php/countryBorders.php",
-        type: 'POST',
-        dataType: 'json',
-        
-        success: function(result) {
-            console.log(result);
+                if (map.hasLayer(border)) {
 
-            $('#whichCountry').change()
-        },
+                    map.removeLayer(border);
+
+                };
+
+
+                border = L.geoJson(result.data,{
+
+                    color: '#ff7800',
+
+                    weight: 2,
+
+                    opacity: 0.65
+
+                }).addTo(map);         
+
+
+                map.fitBounds(border.getBounds());
+
+                },
+        });
+    });
+
+    $('.js-example-responsive').select2({
+        width: 'resolve'
     });
 
 });
 
-L.geoJSON().addTo(map);
