@@ -119,9 +119,11 @@ $(document).ready(function() {
 
 });
 
-//Button for API info 
+//Buttons for API info 
 
-$('#infoButton').click(function() {
+//Travel
+
+$('#travelButton').click(function() {
 
     $.ajax({
         url: "libs/php/gazetteer.php",
@@ -137,12 +139,16 @@ $('#infoButton').click(function() {
 
             if (result.status.name == "ok") {
 
-                $('#txtCapital').html(result['data'][0]["capital"]);
-                $('#txtLang').html(result['data'][0]["languages"][2]);
-
-            }
+                $('#txtName').html(result['data']["name"]);
+                $('#txtLang').html(result['data']["languages"][0]["name"]);
+                $('#txtCurr').html(result['data']["currencies"][0]["name"]);
+                $('#txtZone').html(result['data']["timezones"]);
+                $('#txtCall').html(result['data']["callingCodes"]);
+                         
+            };
         
         },
+
         error: function(jqXHR, textStatus, errorThrown) {
             console.log("info not found");
         },
@@ -151,7 +157,71 @@ $('#infoButton').click(function() {
 
 });
 
+//Geography
+
+$('#geogButton').click(function() {
+
+    $.ajax({
+        url: "libs/php/gazetteer.php",
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            alpha2Code: $('#whichCountry').val(),
+            countryCode: $('#whichCountry').val()
+        },
+
+        success: function(result) {
+
+            console.log(result);
+
+            if (result.status.name == "ok") {
+
+                $('#txtName2').html(result['data']['rest']["name"]);
+                $('#txtCapital').html(result['data']['rest']["capital"]);
+                $('#txtPop').html(result['data']['rest']["population"]);
+                $('#txtArea').html(result['data']['geonames'][0]["areaInSqKm"]);
+                
+            };
+        
+        },
+
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log("info not found");
+        },
+    }); 
 
 
+});
+
+$('#factsButton').click(function() {
+
+    $.ajax({
+        url: "libs/php/gazetteer.php",
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            alpha3Code: $('#whichCountry').val()
+        },
+
+        success: function(result) {
+
+            console.log(result);
+
+            if (result.status.name == "ok") {
+
+                $('#txtName3').html(result['data']["name"]);
+                $('#imgFlags').attr({"src": result['data']["flag"], "width": "25%", "height": "10%"});
+
+            };
+        
+        },
+
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log("info not found");
+        },
+    }); 
+
+
+});
 
 
