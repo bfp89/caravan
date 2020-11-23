@@ -2,7 +2,7 @@
 
 	$executionStartTime = microtime(true) / 1000;
 
-	$url='https://restcountries.eu/rest/v2/alpha/' . $_REQUEST['alpha2Code'];
+	$url='https://restcountries.eu/rest/v2/alpha/' . $_REQUEST['countryCode'];
 	
 
 	$ch = curl_init();
@@ -38,7 +38,7 @@
 	$output['status']['description'] = "mission saved";
 	$output['status']['returnedIn'] = (microtime(true) - $executionStartTime) / 1000 . " ms";
 	$output['data']['rest'] = $rest;
-	$output['data']['geonames'] = $geonames;
+	$output['data']['geonames'] = $geonames[0];
 	
 	header('Content-Type: application/json; charset=UTF-8');
 
