@@ -130,7 +130,7 @@ $('#travelButton').click(function() {
         type: 'POST',
         dataType: 'json',
         data: {
-            alpha3Code: $('#whichCountry').val()
+            countryCode: $('#whichCountry').val()
         },
 
         success: function(result) {
@@ -166,7 +166,6 @@ $('#geogButton').click(function() {
         type: 'POST',
         dataType: 'json',
         data: {
-            alpha2Code: $('#whichCountry').val(),
             countryCode: $('#whichCountry').val()
         },
 
@@ -179,7 +178,7 @@ $('#geogButton').click(function() {
                 $('#txtName2').html(result['data']['rest']["name"]);
                 $('#txtCapital').html(result['data']['rest']["capital"]);
                 $('#txtPop').html(result['data']['rest']["population"]);
-                $('#txtArea').html(result['data']['geonames'][0]["areaInSqKm"]);
+                $('#txtArea').html(result['data']['geonames']["areaInSqKm"]);
                 
             };
         
@@ -200,7 +199,7 @@ $('#factsButton').click(function() {
         type: 'POST',
         dataType: 'json',
         data: {
-            alpha3Code: $('#whichCountry').val()
+            countryCode: $('#whichCountry').val()
         },
 
         success: function(result) {
