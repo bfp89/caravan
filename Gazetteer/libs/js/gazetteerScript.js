@@ -77,7 +77,7 @@ $(document).ready(function() {
             type: 'POST',
             dataType: 'json',
             data: {
-                iso_a3: $('#whichCountry').val()
+                iso_a2: $('#whichCountry').val()
             },
             
             success: function(result) {
@@ -130,7 +130,7 @@ $('#travelButton').click(function() {
         type: 'POST',
         dataType: 'json',
         data: {
-            countryCode: $('#whichCountry').val()
+            alpha2Code: $('#whichCountry').val()
         },
 
         success: function(result) {
@@ -139,11 +139,11 @@ $('#travelButton').click(function() {
 
             if (result.status.name == "ok") {
 
-                $('#txtName').html(result['data']["name"]);
-                $('#txtLang').html(result['data']["languages"][0]["name"]);
-                $('#txtCurr').html(result['data']["currencies"][0]["name"]);
-                $('#txtZone').html(result['data']["timezones"]);
-                $('#txtCall').html(result['data']["callingCodes"]);
+                $('#txtName').html(result['data']['rest']["name"]);
+                $('#txtLang').html(result['data']['rest']["languages"][0]["name"]);
+                $('#txtCurr').html(result['data']['rest']["currencies"][0]["name"]);
+                $('#txtZone').html(result['data']['rest']["timezones"]);
+                $('#txtCall').html(result['data']['rest']["callingCodes"]);
                          
             };
         
@@ -166,7 +166,7 @@ $('#geogButton').click(function() {
         type: 'POST',
         dataType: 'json',
         data: {
-            countryCode: $('#whichCountry').val()
+            alpha2Code: $('#whichCountry').val()
         },
 
         success: function(result) {
@@ -178,7 +178,9 @@ $('#geogButton').click(function() {
                 $('#txtName2').html(result['data']['rest']["name"]);
                 $('#txtCapital').html(result['data']['rest']["capital"]);
                 $('#txtPop').html(result['data']['rest']["population"]);
-                $('#txtArea').html(result['data']['geonames']["areaInSqKm"]);
+                $('#txtArea').html(result['data']['geonames'][0]["areaInSqKm"]);
+                $('#txtCont').html(result['data']['worldBank'][1][0]["region"]["value"]);
+                
                 
             };
         
@@ -192,6 +194,9 @@ $('#geogButton').click(function() {
 
 });
 
+
+//Country Facts 
+
 $('#factsButton').click(function() {
 
     $.ajax({
@@ -199,7 +204,7 @@ $('#factsButton').click(function() {
         type: 'POST',
         dataType: 'json',
         data: {
-            countryCode: $('#whichCountry').val()
+            alpha2Code: $('#whichCountry').val()
         },
 
         success: function(result) {
@@ -208,11 +213,16 @@ $('#factsButton').click(function() {
 
             if (result.status.name == "ok") {
 
-                $('#txtName3').html(result['data']["name"]);
-                $('#imgFlags').attr({"src": result['data']["flag"], "width": "25%", "height": "10%"});
+                $('#txtName3').html(result['data']['rest']["name"]);
+                $('#txtIncome').html(result['data']['worldBank'][1][0]["incomeLevel"]["value"]);
+                $('#txtEu').html(result['data']['apiCast']["result"]);
+                $('#imgFlag').attr({"src": result['data']['rest']["flag"], "width": "25%", "height": "10%"});
 
             };
-        
+        if (result['data']['apiCast']["result"] == false) {
+
+            $('#txtEu').html("False");
+        };
         },
 
         error: function(jqXHR, textStatus, errorThrown) {
@@ -223,4 +233,47 @@ $('#factsButton').click(function() {
 
 });
 
+//National Holidays
 
+$('#holidayButton').click(function() {
+
+    $.ajax({
+        url: "libs/php/gazetteer.php",
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            alpha2Code: $('#whichCountry').val(),
+            day: $('#dayDate').val(),
+            month: $('#monthDate').val(),
+            year: $('#yearDate').val()
+        },
+
+        success: function(result) {
+
+            console.log(result);
+
+            if (result['data']['holidays'][0] == null) {
+                $('#txtHol').html("No holidays on selected date");
+                $('#txtHolDate').html("No holidays on selected date");
+                $('#txtHolDay').html("No holidays on selected date");
+            };
+
+            if (result.status.name == "ok") {
+
+                $('#txtName4').html(result['data']['rest']["name"]);
+                $('#txtHol').html(result['data']['holidays'][0]["name"]);
+                $('#txtHolDate').html(result['data']['holidays'][0]["date"]);
+                $('#txtHolDay').html(result['data']['holidays'][0]["week_day"]);
+                $('#txtHolType').html(result['data']['holidays'][0]["type"]);
+
+
+            };
+        },
+
+        error: function(jqXHR, textStatus, errorThrown,) {
+            console.log("info not found");
+        },
+    }); 
+
+
+});
