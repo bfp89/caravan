@@ -1,0 +1,57 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+html, body, #mapid {
+    height: 100%;
+    width: 100vw;
+    text-align: center;
+}
+
+header {
+   color: darkslategrey;
+   text-align: center;
+   position: sticky;
+}
+
+input {
+    display: inline-block;
+    width: auto;
+}
+
+/*@media (min-width: 576px) { 
+    (0,3,0)
+}*/
+
+.modal-footer {
+    display: inline-block;
+}
+
+#travel, #geog, #facts, #holidays {
+    width: auto;
+    padding: 10px;
+    margin: 10px;
+}
+
+#whichCountry {
+    min-width: 50%;
+}
+
+#imgFlag {
+    border: 1px solid;
+    box-shadow: 5px 8px 5px #050505;
+}
+
+
+#navLabel {
+    padding: 10px;
+    margin: 10px;
+}
+
+#reportrange {
+    background: #fff; 
+    cursor: pointer; 
+    padding: 5px 10px; 
+    border: 1px solid #ccc; 
+    width: 100%;
+}
