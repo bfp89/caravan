@@ -11,7 +11,7 @@
 
         <link rel = "stylesheet"
         type = "text/css"
-        href = "libs/css/GazetteerStyles.css" />
+        href = "libs/css/gazetteerStyles.css" />
 
         <link rel="stylesheet" 
         href="libs/css/leaflet.css"/>
@@ -22,43 +22,358 @@
         <link rel="stylesheet" 
         href="libs/css/faAll.css"/>
 
+        <link rel="stylesheet"
+        href="libs/css/select2.min.css" >
+
+
     </head>
 
     <body>
         <header>
           <nav class="navbar navbar-light navbar-expand-lg" style="background-color: #e3f2fd;">
             
-                <label for="whichCountry">Which Country?</label>
-                <select id="whichCountry" class="js-example-basic-single" type="text" name="whichCountry">
-                    <option value=""></option>
+                <label id="navLabel" for="whichCountry">Which Country?</label>
+                
+                <select id="whichCountry" class="js-example-responsive" type="text" name="whichCountry">
+                    <option id="options"></option>
                  </select>
                 
+                 <button id="travel" type="button" class="btn btn-primary modal-buttons" data-toggle="modal" data-target="#travelInfo">
+                    Travel
+                </button>
+                <button id="geog" type="button" class="btn btn-primary modal-buttons" data-toggle="modal" data-target="#geogInfo">
+                    Geography
+                </button>
+                <button id="facts" type="button" class="btn btn-primary modal-buttons" data-toggle="modal" data-target="#factsInfo">
+                    Country Facts
+                </button>
+                <button id="holidays" type="button" class="btn btn-primary modal-buttons" data-toggle="modal" data-target="#holidaysInfo">
+                    Holidays
+                </button>
             </nav>
         </header>
 
-        <div id="mapid" class="container-fluid"></div>
+        
+
+        <div id="mapid" class="container-fluid">
+        </div>
+
+        <!-- Modal 1 -->
+        <div class="modal fade" id="travelInfo" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="false">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Why should I visit?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                
+                </div>
+                <div class="modal-body">
+                    <div id="divResults">
+			
+                        <table>
+                            <tr>
+                                <td align="right">
+                                    Name: 
+                                </td>
+                                <td id="txtName">
+                                    
+                                </td>
+            
+                            </tr>
+            
+                            <tr>
+                                <td align="right">
+                                    Languages spoken: 
+                                </td>
+                                <td id="txtLang">
+                                    
+                                </td>
+            
+                            </tr> 
+
+                            <tr>
+                                <td align="right">
+                                    National Currency: 
+                                </td>
+                                <td id="txtCurr">
+                                    
+                                </td>
+            
+                            </tr>
+                            
+                            <tr>
+                                <td align="right">
+                                    Set your watches to: 
+                                </td>
+                                <td id="txtZone">
+                                    
+                                </td>
+            
+                            </tr>
+
+                            <tr>
+                                <td align="right">
+                                    To call, add: +
+                                </td>
+                                <td id="txtCall">
+                                    
+                                </td>
+            
+                            </tr>
+            
+                        </table>
+            
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button id="travelButton" type="button" class="btn btn-secondary">Info</button>
+                <button id="closeButton" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                
+                </div>
+            </div>
+            </div>
+        </div>
+
+         <!-- Modal 2 -->
+         <div class="modal fade" id="geogInfo" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="false">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Geography Facts</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                
+                </div>
+                <div class="modal-body">
+                    <div id="divResults">
+			
+                        <table>
+                            <tr>
+                                <td align="right">
+                                    Name: 
+                                </td>
+                                <td id="txtName2">
+                                    
+                                </td>
+            
+                            </tr>
+            
+                            <tr>
+                                <td align="right">
+                                    Capital City: 
+                                </td>
+                                <td id="txtCapital">
+                                    
+                                </td>
+            
+                            </tr>
+
+                            <tr>
+                                <td align="right">
+                                    Population: 
+                                </td>
+                                <td id="txtPop">
+                                    
+                                </td>
+            
+                            </tr>
+
+                            <tr>
+                                <td align="right">
+                                    Area in SqM: 
+                                </td>
+                                <td id="txtArea">
+                                    
+                                </td>
+            
+                            </tr>
+
+                            <tr>
+                                <td align="right">
+                                    Continent/Region:
+                                </td>
+                                <td id="txtCont">
+                                    
+                                </td>
+            
+                            </tr>
+            
+                        </table>
+            
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button id="geogButton" type="button" class="btn btn-secondary">Info</button>
+                <button id="closeButton2" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                
+                </div>
+            </div>
+            </div>
+        </div>
+         <!-- Modal 3 -->
+         <div class="modal fade" id="factsInfo" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="false">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Country Facts</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                
+                </div>
+                <div class="modal-body">
+                    <div id="divResults">
+			
+                        <table>
+                            <tr>
+                                <td align="right">
+                                    Name: 
+                                </td>
+                                <td id="txtName3">
+                                    
+                                </td>
+            
+                            </tr>
+
+                            <tr>
+                                <td align="right">
+                                    National income: 
+                                </td>
+                                <td id="txtIncome">
+                                    
+                                </td>
+            
+                            </tr>
+
+                            <tr>
+                                <td align="right">
+                                    Member of the EU: 
+                                </td>
+                                <td id="txtEu">
+                                    
+                                </td>
+            
+                            </tr>
+
+                            <tr>
+                                <td align="right">
+                                    Flag: 
+                                </td>
+                                <td>
+                                    <img id="imgFlag" src="">
+                                </td>
+            
+                            </tr>
+
+                            
+            
+                        </table>
+            
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button id="factsButton" type="button" class="btn btn-secondary">Info</button>
+                <button id="closeButton3" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <!--Modal 4-->
+        <div class="modal fade" id="holidaysInfo" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="false">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">What holidays do they celebrate, and when?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                
+                </div>
+                <div class="modal-body">
+                    <div id="divResults">
+			
+                        <label for="holidays">Select your date range:</label>
+                        <input id="dayDate" type="text" name="holidays" value="DD" size="4">
+                        <input id="monthDate" type="text" name="holidays" value="MM" size="4">
+                        <input id="yearDate" type="text" name="holidays" value="YYYY" size="6">
+            
+                        <table>
+                            <tr>
+                                <td align="right">
+                                    Name: 
+                                </td>
+                                <td id="txtName4">
+                                
+                                </td>
+            
+                            </tr>
+
+                            <tr>
+                                <td align="right">
+                                    Holidays: 
+                                </td>
+                                <td id="txtHol">
+                                
+                                </td>
+            
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                    Date(s) of holiday: 
+                                </td>
+                                <td id="txtHolDate">
+                                
+                                </td>
+            
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                    What day is it on?: 
+                                </td>
+                                <td id="txtHolDay">
+                                
+                                </td>
+            
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button id="holidayButton" type="button" class="btn btn-secondary">Submit Date</button>
+                <button id="closeButton4" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                
+                </div>
+            </div>
+            </div>
+        </div>
+
 
             
-        <script src="libs/js/jquery-3.5.1.slim.min.js">
+        <script src="libs/js/jquery-3.5.1.min.js">
+        </script>
+
+        <script src="libs/js/leaflet.js">
+        </script>
+
+        <script src="libs/js/gazetteerScript.js">
+        </script>
+
+        <script src="libs/js/bootstrap.min.js" >
         </script>
 
         <script src="libs/js/popper.min.js">
         </script>
 
-        <script src="libs/js/bootstrap.min.js" >
-        </script>
-      
-        <script src="libs/js/leaflet.js">
+        <script src="libs/js/select2.min.js">
         </script>
 
-        <script src="libs/js/GazetteerScript.js">
-        </script>
-
-        <script src= "libs/js/easyButton.js">
-        </script>
-
-        <script src= "libs/js/faAll.js">
-        </script>
+        
     </body>
 
     <footer>
