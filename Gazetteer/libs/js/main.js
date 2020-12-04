@@ -53,10 +53,6 @@ $('#whichCountry').change(function() {
                 $('#txtCurr').html(result['data']['rest']["currencies"][0]["name"]);
                 $('#txtZone').html(result['data']['rest']["timezones"]);
                 $('#txtCall').html(result['data']['rest']["callingCodes"]);
-                         
-            };
-
-            if (result.status.name == "ok") {
 
                 $('#txtName2').html(result['data']['rest']["name"]);
                 $('#txtCapital').html(result['data']['rest']["capital"]);
@@ -64,15 +60,16 @@ $('#whichCountry').change(function() {
                 $('#txtArea').html(result['data']['geonames'][0]["areaInSqKm"]);
                 $('#txtCont').html(result['data']['worldBank'][1][0]["region"]["value"]);
                 
-                
-            };
-
-            if (result.status.name == "ok") {
-
                 $('#txtName3').html(result['data']['rest']["name"]);
                 $('#txtIncome').html(result['data']['worldBank'][1][0]["incomeLevel"]["value"]);
                 $('#txtEu').html(result['data']['apiCast']["result"]);
                 $('#imgFlag').attr({"src": result['data']['rest']["flag"], "width": "25%", "height": "10%"});
+                
+                $('#txtName4').html(result['data']['rest']["name"]);
+                $('#txtHol').html(result['data']['holidays'][0]["name"]);
+                $('#txtHolDate').html(result['data']['holidays'][0]["date"]);
+                $('#txtHolDay').html(result['data']['holidays'][0]["week_day"]);
+                $('#txtHolType').html(result['data']['holidays'][0]["type"]);
 
             };
 
@@ -85,17 +82,6 @@ $('#whichCountry').change(function() {
                 $('#txtHol').html("No holidays on selected date");
                 $('#txtHolDate').html("No holidays on selected date");
                 $('#txtHolDay').html("No holidays on selected date");
-            };
-
-            if (result.status.name == "ok") {
-
-                $('#txtName4').html(result['data']['rest']["name"]);
-                $('#txtHol').html(result['data']['holidays'][0]["name"]);
-                $('#txtHolDate').html(result['data']['holidays'][0]["date"]);
-                $('#txtHolDay').html(result['data']['holidays'][0]["week_day"]);
-                $('#txtHolType').html(result['data']['holidays'][0]["type"]);
-
-
             };
         },
 
