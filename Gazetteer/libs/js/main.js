@@ -1,42 +1,55 @@
 //The Map
-var map = L.map('mapid').fitWorld();
+var map = L.map('mapid');
 
-L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-maxZoom: 18,
-id: 'mapbox/streets-v11',
-tileSize: 512,
-zoomOffset: -1,
-accessToken: 'pk.eyJ1IjoiYmVucDExIiwiYSI6ImNrZnM2ZGdzZTA2OHQyc2xyZjl6YWppancifQ.AeFqdkNbl4h_JnvtqBEhfw'
+
+L.tileLayer.provider('Jawg.Streets', {
+    variant: '<insert map id here or blank for default variant>',
+    accessToken: 'pDk51Jyy8fCzTEUyBtiVK6JFWeZBw42hZX6oB9blyKQ4tVGLEjfHbh7dOFTy4JwE'
 }).addTo(map);
-
-
-//Navigator
-map.locate({setView: true, maxZoom: 16});
-
-function onLocationFound(e) {
-    var radius = e.accuracy;
-
-    L.marker(e.latlng).addTo(map)
-        .bindPopup("You are within " + radius + " meters from this point").openPopup();
-
-    L.circle(e.latlng, radius).addTo(map);
-};
-
-map.on('locationfound', onLocationFound);
-
-function onLocationError(e) {
-    alert(e.message);
-};
-
-map.on('locationerror', onLocationError);
-
-
 
 //Select country - function
 
 var border;
+$('#whichCountry').change(function() {
+                
+    $.ajax({
+        url: "libs/php/gazetteer.php",
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            iso_a2: $('#whichCountry').val()
+        },
+        
+        success: function(result) {
+            console.log(result);
 
+            if (map.hasLayer(border)) {
+
+                map.removeLayer(border);
+
+            };
+
+
+            border = L.geoJson(result.data,{
+
+                color: '#ff7800',
+
+                weight: 6,
+
+                opacity: 0.65
+
+            }).addTo(map);         
+
+
+            map.fitBounds(border.getBounds());
+
+            
+            }
+
+    });
+    
+    
+});
 $(document).ready(function() {
 
     
@@ -66,59 +79,40 @@ $(document).ready(function() {
             
                 })); 
             
-            }); 
+            });
+            //Navigator
+            if ('geolocation' in navigator){
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    let latGeo = position.coords.latitude;
+                    let lngGeo = position.coords.longitude;
+
+                    $.ajax({
+                        url: "libs/php/countryCodes.php",
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            latGeo: latGeo, 
+                            lngGeo: lngGeo
+                        },
+                        success: function(result) {
+                            
+                            console.log(result);
+
+                            $('#whichCountry').val(result['data']['countryCode']).change();
+                        }
+    
+                    });       
+                });
+                
+            };
+                
         },
         
     });
-    $('#whichCountry').change(function() {
-                
-        $.ajax({
-            url: "libs/php/countryBorders.php",
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                iso_a2: $('#whichCountry').val()
-            },
-            
-            success: function(result) {
-                console.log(result);
+    
 
-                if (map.hasLayer(border)) {
-
-                    map.removeLayer(border);
-
-                };
-
-
-                border = L.geoJson(result.data,{
-
-                    color: '#ff7800',
-
-                    weight: 6,
-
-                    opacity: 0.65
-
-                }).addTo(map);         
-
-
-                map.fitBounds(border.getBounds());
-
-                
-                }
-
-        });
-        
-        
-    });
-
-//Select country - style
-
-    $('.js-example-responsive').select2({
-        width: 'resolve'
-    });
 
 });
-
 //Buttons for API info 
 
 //Travel

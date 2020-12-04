@@ -27,6 +27,10 @@ input {
     display: inline-block;
 }
 
+.star{
+    font-size: 1.5em;
+  } 
+
 #travel, #geog, #facts, #holidays {
     width: auto;
     padding: 10px;
@@ -34,7 +38,7 @@ input {
 }
 
 #whichCountry {
-    min-width: 50%;
+    width: 10%;
 }
 
 #imgFlag {
