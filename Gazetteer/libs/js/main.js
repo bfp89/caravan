@@ -1,12 +1,17 @@
 //The Map
-var map = L.map('mapid');
-
 var border;
 
-L.tileLayer.provider('Jawg.Streets', {
-    variant: '<insert map id here or blank for default variant>',
-    accessToken: 'pDk51Jyy8fCzTEUyBtiVK6JFWeZBw42hZX6oB9blyKQ4tVGLEjfHbh7dOFTy4JwE'
-}).addTo(map);
+var accessToken = 'pDk51Jyy8fCzTEUyBtiVK6JFWeZBw42hZX6oB9blyKQ4tVGLEjfHbh7dOFTy4JwE';
+var map = L.map('mapid');
+
+
+    L.tileLayer(
+      `https://tile.jawg.io/jawg-sunny/{z}/{x}/{y}.png?access-token=${accessToken}`, {
+        attribution: '<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank" class="jawg-attrib">&copy; <b>Jawg</b>Maps</a> | <a href="https://www.openstreetmap.org/copyright" title="OpenStreetMap is open data licensed under ODbL" target="_blank" class="osm-attrib">&copy; OSM contributors</a>',
+        maxZoom: 22
+      }
+    ).addTo(map);
+
 
 //Select country - function
 
