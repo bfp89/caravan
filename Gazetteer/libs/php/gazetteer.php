@@ -2,6 +2,19 @@
 
 	$executionStartTime = microtime(true) / 1000;
 
+    $countryData = json_decode(file_get_contents("countryBorders.geo.json"), true);
+
+    $border = null;
+
+    foreach ($countryData['features'] as $feature) {
+
+        if ($feature["properties"]['iso_a2'] == $_REQUEST['iso_a2']) {
+        
+        $border = $feature;
+
+        }
+    };
+
 
 	$url='https://restcountries.eu/rest/v2/alpha/' . $_REQUEST['alpha2Code'];
 	
@@ -73,6 +86,7 @@
 	$output['status']['name'] = "ok";
 	$output['status']['description'] = "mission saved";
 	$output['status']['returnedIn'] = (microtime(true) - $executionStartTime) / 1000 . " ms";
+	$output['data']['border'] = $border;
 	$output['data']['rest'] = $rest;
 	$output['data']['geonames'] = $geonames['geonames'];
 	$output['data']['worldBank'] = $worldBank;

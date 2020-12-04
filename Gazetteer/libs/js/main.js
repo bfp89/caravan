@@ -9,7 +9,7 @@ L.tileLayer.provider('Jawg.Streets', {
 
 //Select country - function
 
-var border;
+
 $('#whichCountry').change(function() {
                 
     $.ajax({
@@ -17,7 +17,10 @@ $('#whichCountry').change(function() {
         type: 'POST',
         dataType: 'json',
         data: {
-            iso_a2: $('#whichCountry').val()
+            iso_a2: $('#whichCountry').val(),
+            day: $('#dayDate').val(),
+            month: $('#monthDate').val(),
+            year: $('#yearDate').val()
         },
         
         success: function(result) {
@@ -43,94 +46,6 @@ $('#whichCountry').change(function() {
 
             map.fitBounds(border.getBounds());
 
-            
-            }
-
-    });
-    
-    
-});
-$(document).ready(function() {
-
-    
-
-    $.ajax({
-        url: "libs/php/selectCountry.php",
-        type: 'POST',
-        dataType: 'json',
-        
-        success: function(result) {
-
-            console.log(result);
-
-            $('#whichCountry').html('');
-
-
-
-            $.each(result.data, function(index) {
-            
-                
-            
-                $('#whichCountry').append($("<option>", {
-            
-                    value: result.data[index].code,
-            
-                    text: result.data[index].name
-            
-                })); 
-            
-            });
-            //Navigator
-            if ('geolocation' in navigator){
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    let latGeo = position.coords.latitude;
-                    let lngGeo = position.coords.longitude;
-
-                    $.ajax({
-                        url: "libs/php/countryCodes.php",
-                        type: 'POST',
-                        dataType: 'json',
-                        data: {
-                            latGeo: latGeo, 
-                            lngGeo: lngGeo
-                        },
-                        success: function(result) {
-                            
-                            console.log(result);
-
-                            $('#whichCountry').val(result['data']['countryCode']).change();
-                        }
-    
-                    });       
-                });
-                
-            };
-                
-        },
-        
-    });
-    
-
-
-});
-//Buttons for API info 
-
-//Travel
-
-$('#travelButton').click(function() {
-
-    $.ajax({
-        url: "libs/php/gazetteer.php",
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            alpha2Code: $('#whichCountry').val()
-        },
-
-        success: function(result) {
-
-            console.log(result);
-
             if (result.status.name == "ok") {
 
                 $('#txtName').html(result['data']['rest']["name"]);
@@ -140,32 +55,6 @@ $('#travelButton').click(function() {
                 $('#txtCall').html(result['data']['rest']["callingCodes"]);
                          
             };
-        
-        },
-
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log("info not found");
-        },
-    }); 
-
-
-});
-
-//Geography
-
-$('#geogButton').click(function() {
-
-    $.ajax({
-        url: "libs/php/gazetteer.php",
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            alpha2Code: $('#whichCountry').val()
-        },
-
-        success: function(result) {
-
-            console.log(result);
 
             if (result.status.name == "ok") {
 
@@ -177,33 +66,6 @@ $('#geogButton').click(function() {
                 
                 
             };
-        
-        },
-
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log("info not found");
-        },
-    }); 
-
-
-});
-
-
-//Country Facts 
-
-$('#factsButton').click(function() {
-
-    $.ajax({
-        url: "libs/php/gazetteer.php",
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            alpha2Code: $('#whichCountry').val()
-        },
-
-        success: function(result) {
-
-            console.log(result);
 
             if (result.status.name == "ok") {
 
@@ -213,38 +75,11 @@ $('#factsButton').click(function() {
                 $('#imgFlag').attr({"src": result['data']['rest']["flag"], "width": "25%", "height": "10%"});
 
             };
-        if (result['data']['apiCast']["result"] == false) {
 
-            $('#txtEu').html("False");
-        };
-        },
+            if (result['data']['apiCast']["result"] == false) {
 
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log("info not found");
-        },
-    }); 
-
-
-});
-
-//National Holidays
-
-$('#holidayButton').click(function() {
-
-    $.ajax({
-        url: "libs/php/gazetteer.php",
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            alpha2Code: $('#whichCountry').val(),
-            day: $('#dayDate').val(),
-            month: $('#monthDate').val(),
-            year: $('#yearDate').val()
-        },
-
-        success: function(result) {
-
-            console.log(result);
+                $('#txtEu').html("False");
+            };
 
             if (result['data']['holidays'][0] == null) {
                 $('#txtHol').html("No holidays on selected date");
@@ -264,10 +99,69 @@ $('#holidayButton').click(function() {
             };
         },
 
-        error: function(jqXHR, textStatus, errorThrown,) {
-            console.log("info not found");
+    });
+    
+    
+});
+
+$(document).ready(function() {
+
+    $.ajax({
+        url: "libs/php/selectCountry.php",
+        type: 'POST',
+        dataType: 'json',
+        
+        success: function(result) {
+
+            console.log(result);
+
+            $('#whichCountry').html('');
+
+
+            $.each(result.data, function(index) {
+            
+                
+                $('#whichCountry').append($("<option>", {
+            
+                    value: result.data[index].code,
+            
+                    text: result.data[index].name
+            
+                })); 
+            
+            });
+
+            //Navigator
+            if ('geolocation' in navigator){
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    let latGeo = position.coords.latitude;
+                    let lngGeo = position.coords.longitude;
+
+                    $.ajax({
+                        url: "libs/php/countryCodes.php",
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            latGeo: latGeo, 
+                            lngGeo: lngGeo
+                        },
+                        success: function(result) {
+                            
+                            console.log(result);
+
+                            $('#whichCountry').val(result['data']['countryCode']).change();
+                        },
+    
+                    });       
+                });
+                
+            };
+                
         },
-    }); 
+        
+    });
+    
 
 
 });
+
