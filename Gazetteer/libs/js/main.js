@@ -1,6 +1,7 @@
 //The Map
 var map = L.map('mapid');
 
+var border;
 
 L.tileLayer.provider('Jawg.Streets', {
     variant: '<insert map id here or blank for default variant>',
@@ -33,7 +34,7 @@ $('#whichCountry').change(function() {
             };
 
 
-            border = L.geoJson(result.data,{
+            border = L.geoJson(result.data.border,{
 
                 color: '#ff7800',
 
@@ -135,7 +136,7 @@ $(document).ready(function() {
                             
                             console.log(result);
 
-                            $('#whichCountry').val(result['data']['countryCode']).change();
+                            $('#whichCountry').val(result.data.countryCode).change();
                         },
     
                     });       
