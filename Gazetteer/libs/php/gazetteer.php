@@ -1,5 +1,9 @@
 <?php
 
+ini_set('display_errors', 'On');
+
+error_reporting(E_ALL);
+
 	$executionStartTime = microtime(true) / 1000;
 
     $countryData = json_decode(file_get_contents("countryBorders.geo.json"), true);
@@ -8,7 +12,7 @@
 
     foreach ($countryData['features'] as $feature) {
 
-        if ($feature["properties"]['iso_a2'] == $_REQUEST['iso_a2']) {
+        if ($feature["properties"]['iso_a2'] == $_REQUEST['alpha2Code']) {
         
         $border = $feature;
 
@@ -18,7 +22,6 @@
 
 	$url='https://restcountries.eu/rest/v2/alpha/' . $_REQUEST['alpha2Code'];
 	
-
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -29,8 +32,11 @@
 	curl_close($ch);
 
 	$rest = json_decode($result,true);	
+//to remove properties
+//	unset($rest[])
 
 	$url2='http://api.geonames.org/countryInfoJSON?formatted=true&lang=en&country=' . $_REQUEST['alpha2Code'] . '&username=benpenny1&style=full';
+	
 
 	$ch2 = curl_init();
 	curl_setopt($ch2, CURLOPT_SSL_VERIFYPEER, false);

@@ -8,11 +8,26 @@ var map = L.map('mapid');
     L.tileLayer(
       `https://tile.jawg.io/jawg-sunny/{z}/{x}/{y}.png?access-token=${accessToken}`, {
         attribution: '<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank" class="jawg-attrib">&copy; <b>Jawg</b>Maps</a> | <a href="https://www.openstreetmap.org/copyright" title="OpenStreetMap is open data licensed under ODbL" target="_blank" class="osm-attrib">&copy; OSM contributors</a>',
-        maxZoom: 22
+        maxZoom: 10
       }
     ).addTo(map);
 
+    L.easyButton('fa-star', function(btn, map){
+        $('#travelInfo').modal('show')
+    }).addTo(map);
 
+    L.easyButton('fa-star', function(btn, map){
+        $('#geogInfo').modal('show')
+    }).addTo(map);
+
+    L.easyButton('fa-star', function(btn, map){
+        $('#factsInfo').modal('show')
+    }).addTo(map);
+
+    L.easyButton('fa-star', function(btn, map){
+        $('#holidaysInfo').modal('show')
+    }).addTo(map);
+       
 //Select country - function
 
 
@@ -23,10 +38,7 @@ $('#whichCountry').change(function() {
         type: 'POST',
         dataType: 'json',
         data: {
-            iso_a2: $('#whichCountry').val(),
-            day: $('#dayDate').val(),
-            month: $('#monthDate').val(),
-            year: $('#yearDate').val()
+            alpha2Code: $('#whichCountry').val()
         },
         
         success: function(result) {
@@ -71,12 +83,6 @@ $('#whichCountry').change(function() {
                 $('#txtEu').html(result['data']['apiCast']["result"]);
                 $('#imgFlag').attr({"src": result['data']['rest']["flag"], "width": "25%", "height": "10%"});
                 
-                $('#txtName4').html(result['data']['rest']["name"]);
-                $('#txtHol').html(result['data']['holidays'][0]["name"]);
-                $('#txtHolDate').html(result['data']['holidays'][0]["date"]);
-                $('#txtHolDay').html(result['data']['holidays'][0]["week_day"]);
-                $('#txtHolType').html(result['data']['holidays'][0]["type"]);
-
             };
 
             if (result['data']['apiCast']["result"] == false) {
@@ -84,11 +90,7 @@ $('#whichCountry').change(function() {
                 $('#txtEu').html("False");
             };
 
-            if (result['data']['holidays'][0] == null) {
-                $('#txtHol').html("No holidays on selected date");
-                $('#txtHolDate').html("No holidays on selected date");
-                $('#txtHolDay').html("No holidays on selected date");
-            };
+            
         },
 
     });
@@ -139,7 +141,7 @@ $(document).ready(function() {
                         },
                         success: function(result) {
                             
-                            console.log(result);
+                            console.log(result.data);
 
                             $('#whichCountry').val(result.data.countryCode).change();
                         },
@@ -157,3 +159,35 @@ $(document).ready(function() {
 
 });
 
+$('#holidayButton').click(function() {
+
+    $.ajax({
+        url: "libs/php/gazetteer.php",
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            day: $('#dayDate').val(),
+            month: $('#monthDate').val(),
+            year: $('#yearDate').val()
+        },
+        success: function(result) {
+
+            console.log(result);
+
+            if (result.status.name == "ok") {
+
+                $('#txtName4').html(result['data']['rest']["name"]);
+                $('#txtHol').html(result['data']['holidays'][0]["name"]);
+                $('#txtHolDate').html(result['data']['holidays'][0]["date"]);
+                $('#txtHolDay').html(result['data']['holidays'][0]["week_day"]);
+                $('#txtHolType').html(result['data']['holidays'][0]["type"]);
+
+                if (result['data']['holidays'][0] == null) {
+                    $('#txtHol').html("No holidays on selected date");
+                    $('#txtHolDate').html("No holidays on selected date");
+                    $('#txtHolDay').html("No holidays on selected date");
+                };
+            }
+        },
+    });
+});

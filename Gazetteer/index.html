@@ -29,32 +29,19 @@
     <body>
         <header>
           <nav class="navbar navbar-light navbar-expand-lg" style="background-color: #e3f2fd;">
-            
-                <label id="navLabel" for="whichCountry">Which Country?</label>
-                
+            <h2>Gazetteer</h2>                
                 <select id="whichCountry" class="form-control" type="text">
                     <option id="options"></option>
                  </select>
-                
-                 <button id="travel" type="button" class="btn btn-primary modal-buttons" data-toggle="modal" data-target="#travelInfo">
-                    Travel
-                </button>
-                <button id="geog" type="button" class="btn btn-primary modal-buttons" data-toggle="modal" data-target="#geogInfo">
-                    Geography
-                </button>
-                <button id="facts" type="button" class="btn btn-primary modal-buttons" data-toggle="modal" data-target="#factsInfo">
-                    Country Facts
-                </button>
-                <button id="holidays" type="button" class="btn btn-primary modal-buttons" data-toggle="modal" data-target="#holidaysInfo">
-                    Holidays
-                </button>
             </nav>
         </header>
 
         
 
-        <div id="mapid" class="container-fluid">
+        <div id="mapid" class="container-fluid fa-star">
         </div>
+
+
 
         <!-- Modal 1 -->
         <div class="modal fade" id="travelInfo" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="false">
@@ -126,7 +113,6 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                <button id="travelButton" type="button" class="btn btn-secondary">Info</button>
                 <button id="closeButton" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 
                 </div>
@@ -204,7 +190,6 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                <button id="geogButton" type="button" class="btn btn-secondary">Info</button>
                 <button id="closeButton2" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 
                 </div>
@@ -273,7 +258,6 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                <button id="factsButton" type="button" class="btn btn-secondary">Info</button>
                 <button id="closeButton3" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 
                 </div>
@@ -356,19 +340,22 @@
         <script src="libs/js/jquery-3.5.1.min.js">
         </script>
 
-        <script src="libs/js/leaflet.js">
+        <script src="libs/vendor/leaflet.js">
         </script>
 
-        <script src="libs/js/leaflet-providers.js">
+        <script src="libs/vendor/bootstrap.min.js" >
+        </script>
+        
+        <script src="libs/vendor/faAll.js">
+        </script>
+
+        <script src="libs/vendor/easyButton.js">
         </script>
 
         <script src="libs/js/main.js">
         </script>
 
-        <script src="libs/js/bootstrap.min.js" >
-        </script>
-
-        <script src="libs/js/popper.min.js">
+        <script src="libs/vendor/popper.min.js">
         </script>
 
         
