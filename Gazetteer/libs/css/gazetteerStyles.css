@@ -3,15 +3,20 @@ body {
     margin: 0;
 }
 html, body, #mapid {
-    height: 100%;
-    width: 100vw;
+    height: 91vh;
+    width: 100%;
     text-align: center;
+    z-index: 2;
 }
 
 h2 {
     opacity: 0.3;
+}
+
+h5 {
     text-align: center;
 }
+
 select {
     position: absolute; 
     top: 10px; 
@@ -21,17 +26,26 @@ select {
 header {
    color: darkslategrey;
    text-align: center;
-   position: sticky;
-}
-
-input {
-    display: inline-block;
-    width: auto;
+   z-index: 1;
 }
 
 /*@media (min-width: 576px) { 
     (0,3,0)
 }*/
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+
+.modal-body {
+    word-wrap: break-word;
+    overflow: auto;
+}
 
 .modal-footer {
     display: inline-block;
@@ -40,12 +54,6 @@ input {
 .star{
     font-size: 1.5em;
   } 
-
-#travel, #geog, #facts, #holidays {
-    width: auto;
-    padding: 10px;
-    margin: 10px;
-}
 
 #whichCountry {
     width: auto;

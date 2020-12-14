@@ -2,31 +2,53 @@
 var border;
 
 var accessToken = 'pDk51Jyy8fCzTEUyBtiVK6JFWeZBw42hZX6oB9blyKQ4tVGLEjfHbh7dOFTy4JwE';
-var map = L.map('mapid');
 
+var streetMap = `https://tile.jawg.io/jawg-sunny/{z}/{x}/{y}.png?access-token=${accessToken}`;
 
-    L.tileLayer(
-      `https://tile.jawg.io/jawg-sunny/{z}/{x}/{y}.png?access-token=${accessToken}`, {
-        attribution: '<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank" class="jawg-attrib">&copy; <b>Jawg</b>Maps</a> | <a href="https://www.openstreetmap.org/copyright" title="OpenStreetMap is open data licensed under ODbL" target="_blank" class="osm-attrib">&copy; OSM contributors</a>',
-        maxZoom: 10
-      }
-    ).addTo(map);
+var layerOne = L.tileLayer(streetMap, {
+    minZoom: 1,
+    maxZoom: 22,
+    maxNativeZoom: 18
+});
 
-    L.easyButton('fa-star', function(btn, map){
-        $('#travelInfo').modal('show')
-    }).addTo(map);
+var map = L.map('mapid', {
 
-    L.easyButton('fa-star', function(btn, map){
-        $('#geogInfo').modal('show')
-    }).addTo(map);
+    center: [0,0],
+    zoom: 12,
+    zoomSnap: 0.2,
+    zoomDelta: 0.2,
+    layers: [layerOne],
+    tap: true,
+    attributionControl: true,
+    zoomControl: true,
+    doubleClickZoom: true,
+    keyboard: true
 
-    L.easyButton('fa-star', function(btn, map){
-        $('#factsInfo').modal('show')
-    }).addTo(map);
+});
 
-    L.easyButton('fa-star', function(btn, map){
-        $('#holidaysInfo').modal('show')
-    }).addTo(map);
+L.easyButton('fa-plane', function(btn, map){
+    $('#travelInfo').modal('show')
+}).addTo(map);
+
+L.easyButton('fa-globe-americas', function(btn, map){
+    $('#geogInfo').modal('show')
+}).addTo(map);
+
+L.easyButton('fa-question-circle', function(btn, map){
+    $('#factsInfo').modal('show')
+}).addTo(map);
+
+L.easyButton('fa-suitcase-rolling', function(btn, map){
+    $('#holidaysInfo').modal('show')
+}).addTo(map);
+
+L.easyButton('fa-newspaper', function(btn, map){
+    $('#newsInfo').modal('show')
+}).addTo(map);
+
+L.easyButton('fa-virus', function(btn, map){
+    $('#covidInfo').modal('show')
+}).addTo(map);
        
 //Select country - function
 
@@ -38,7 +60,7 @@ $('#whichCountry').change(function() {
         type: 'POST',
         dataType: 'json',
         data: {
-            alpha2Code: $('#whichCountry').val()
+            Code: $('#whichCountry').val()
         },
         
         success: function(result) {
@@ -67,12 +89,23 @@ $('#whichCountry').change(function() {
             if (result.status.name == "ok") {
 
                 $('#txtName').html(result['data']['rest']["name"]);
-                $('#txtLang').html(result['data']['rest']["languages"][0]["name"]);
+                
                 $('#txtCurr').html(result['data']['rest']["currencies"][0]["name"]);
                 $('#txtZone').html(result['data']['rest']["timezones"]);
                 $('#txtCall').html(result['data']['rest']["callingCodes"]);
 
                 $('#txtName2').html(result['data']['rest']["name"]);
+
+                let index = 0;
+                let langs = [];
+                while (index < result['data']['rest']["languages"].length) {
+                    
+                    langs.push(result['data']['rest']["languages"][index]["name"]);
+                    $('#txtLang').html(langs);
+                    langs.join(', ');
+                    index += 1;
+                }
+
                 $('#txtCapital').html(result['data']['rest']["capital"]);
                 $('#txtPop').html(result['data']['rest']["population"]);
                 $('#txtArea').html(result['data']['geonames'][0]["areaInSqKm"]);
@@ -82,12 +115,46 @@ $('#whichCountry').change(function() {
                 $('#txtIncome').html(result['data']['worldBank'][1][0]["incomeLevel"]["value"]);
                 $('#txtEu').html(result['data']['apiCast']["result"]);
                 $('#imgFlag').attr({"src": result['data']['rest']["flag"], "width": "25%", "height": "10%"});
+
+                $('#txtName4').html(result['data']['rest']["name"]);
+                
+                let index2 = 0;
+                let hols = [];
+                let holsDates = [];
+                
+                while (index2 < result['data']['holidays'].length) {
+                    
+                    hols.push(result['data']['holidays'][index2]["name"]);
+                    holsDates.push(result['data']['holidays'][index2]["date"]);
+                    $('#txtHol').html(hols.map(function(value, index2) {
+                        return value + ' - ' + holsDates[index2] + '~~';
+                    }));
+                    index2 += 1;
+                }
+                
+
+                $('#txtName5').html(result['data']['rest']["name"]);
+                $('#txtPaper1').html(result['data']['news']["articles"][0]["source"]["name"]);
+                $('#txtPaper2').html(result['data']['news']["articles"][1]["source"]["name"]);
+                $('#txtPaper3').html(result['data']['news']["articles"][2]["source"]["name"]);
+                $('#txtLink1').html(result['data']['news']["articles"][0]["title"]);
+                $('#txtLink2').html(result['data']['news']["articles"][1]["title"]);
+                $('#txtLink3').html(result['data']['news']["articles"][2]["title"]);
+                $('#txtLink1').attr({"href": result['data']['news']["articles"][0]["url"]});
+                $('#txtLink2').attr({"href": result['data']['news']["articles"][1]["url"]});
+                $('#txtLink3').attr({"href": result['data']['news']["articles"][2]["url"]});      
+                
+
+                $('#txtName6').html(result['data']['rest']["name"]);
+                $('#txtCases').html(result['data']['covid'][result['data']['covid'].length - 1]["Cases"]);
                 
             };
 
             if (result['data']['apiCast']["result"] == false) {
 
                 $('#txtEu').html("False");
+            } else {
+                $('#txtEu').html("True");
             };
 
             
@@ -128,16 +195,17 @@ $(document).ready(function() {
             //Navigator
             if ('geolocation' in navigator){
                 navigator.geolocation.getCurrentPosition(function(position) {
-                    let latGeo = position.coords.latitude;
                     let lngGeo = position.coords.longitude;
+                    let latGeo = position.coords.latitude;
+                    
 
                     $.ajax({
                         url: "libs/php/countryCodes.php",
                         type: 'POST',
                         dataType: 'json',
-                        data: {
-                            latGeo: latGeo, 
-                            lngGeo: lngGeo
+                        data: { 
+                            lngGeo: lngGeo,
+                            latGeo: latGeo
                         },
                         success: function(result) {
                             
@@ -155,39 +223,5 @@ $(document).ready(function() {
         
     });
     
-
-
 });
 
-$('#holidayButton').click(function() {
-
-    $.ajax({
-        url: "libs/php/gazetteer.php",
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            day: $('#dayDate').val(),
-            month: $('#monthDate').val(),
-            year: $('#yearDate').val()
-        },
-        success: function(result) {
-
-            console.log(result);
-
-            if (result.status.name == "ok") {
-
-                $('#txtName4').html(result['data']['rest']["name"]);
-                $('#txtHol').html(result['data']['holidays'][0]["name"]);
-                $('#txtHolDate').html(result['data']['holidays'][0]["date"]);
-                $('#txtHolDay').html(result['data']['holidays'][0]["week_day"]);
-                $('#txtHolType').html(result['data']['holidays'][0]["type"]);
-
-                if (result['data']['holidays'][0] == null) {
-                    $('#txtHol').html("No holidays on selected date");
-                    $('#txtHolDate').html("No holidays on selected date");
-                    $('#txtHolDay').html("No holidays on selected date");
-                };
-            }
-        },
-    });
-});

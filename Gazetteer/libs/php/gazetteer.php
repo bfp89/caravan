@@ -12,7 +12,7 @@ error_reporting(E_ALL);
 
     foreach ($countryData['features'] as $feature) {
 
-        if ($feature["properties"]['iso_a2'] == $_REQUEST['alpha2Code']) {
+        if ($feature["properties"]['iso_a2'] == $_REQUEST['Code']) {
         
         $border = $feature;
 
@@ -20,7 +20,7 @@ error_reporting(E_ALL);
     };
 
 
-	$url='https://restcountries.eu/rest/v2/alpha/' . $_REQUEST['alpha2Code'];
+	$url='https://restcountries.eu/rest/v2/alpha/' . $_REQUEST['Code'];
 	
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -35,7 +35,7 @@ error_reporting(E_ALL);
 //to remove properties
 //	unset($rest[])
 
-	$url2='http://api.geonames.org/countryInfoJSON?formatted=true&lang=en&country=' . $_REQUEST['alpha2Code'] . '&username=benpenny1&style=full';
+	$url2='http://api.geonames.org/countryInfoJSON?formatted=true&lang=en&country=' . $_REQUEST['Code'] . '&username=benpenny1&style=full';
 	
 
 	$ch2 = curl_init();
@@ -49,7 +49,7 @@ error_reporting(E_ALL);
 
 	$geonames = json_decode($result2,true);
 
-	$url3='http://api.worldbank.org/v2/country/' . $_REQUEST['alpha2Code'] . '?format=json';
+	$url3='http://api.worldbank.org/v2/country/' . $_REQUEST['Code'] . '?format=json';
 
 	$ch3 = curl_init();
 	curl_setopt($ch3, CURLOPT_SSL_VERIFYPEER, false);
@@ -62,7 +62,7 @@ error_reporting(E_ALL);
 
 	$worldBank = json_decode($result3,true);
 
-	$url4='https://api-2445580194301.production.gw.apicast.io/1.0/region/country/is_eu.php?country=' . $_REQUEST['alpha2Code'] . '&app_id=c11f016a&app_key=1c828fd562ef4d59c1a177e6c1d85e98';
+	$url4='https://api-2445580194301.production.gw.apicast.io/1.0/region/country/is_eu.php?country=' . $_REQUEST['Code'] . '&app_id=c11f016a&app_key=1c828fd562ef4d59c1a177e6c1d85e98';
 
 	$ch4 = curl_init();
 	curl_setopt($ch4, CURLOPT_SSL_VERIFYPEER, false);
@@ -75,8 +75,7 @@ error_reporting(E_ALL);
 
 	$apiCast = json_decode($result4,true);
 
-	$url5='https://holidays.abstractapi.com/v1/?api_key=5e0ccb7c96a3403ba76bfdc4d7c28e53&country=' . $_REQUEST['alpha2Code'] . '&year=' . $_REQUEST['year'] . '&month=' . $_REQUEST['month'] . '&day=' . $_REQUEST['day'];
-
+	$url5='https://holidays.abstractapi.com/v1/?api_key=5e0ccb7c96a3403ba76bfdc4d7c28e53&country=' . $_REQUEST['Code'];
 	$ch5 = curl_init();
 	curl_setopt($ch5, CURLOPT_SSL_VERIFYPEER, false);
 	curl_setopt($ch5, CURLOPT_RETURNTRANSFER, true);
@@ -88,6 +87,32 @@ error_reporting(E_ALL);
 
 	$holidays = json_decode($result5,true);
 
+	$url6= 'http://newsapi.org/v2/top-headlines?country=' . $_REQUEST['Code'] . '&apiKey=c5543d7647934d5fb97991e28fadd384';
+
+	$ch6 = curl_init();
+	curl_setopt($ch6, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch6, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch6, CURLOPT_URL,$url6);
+
+	$result6=curl_exec($ch6);
+
+	curl_close($ch6);
+
+	$news = json_decode($result6,true);
+
+	$url7='https://api.covid19api.com/country/' . $_REQUEST['Code'] . '/status/confirmed/live';
+
+	$ch7 = curl_init();
+	curl_setopt($ch7, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch7, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch7, CURLOPT_URL,$url7);
+
+	$result7=curl_exec($ch7);
+
+	curl_close($ch7);
+
+	$covid = json_decode($result7,true);
+
 	$output['status']['code'] = "200";
 	$output['status']['name'] = "ok";
 	$output['status']['description'] = "mission saved";
@@ -98,6 +123,8 @@ error_reporting(E_ALL);
 	$output['data']['worldBank'] = $worldBank;
 	$output['data']['apiCast'] = $apiCast;
 	$output['data']['holidays'] = $holidays;
+	$output['data']['news'] = $news;
+	$output['data']['covid'] = $covid;
 	
 	header('Content-Type: application/json; charset=UTF-8');
 

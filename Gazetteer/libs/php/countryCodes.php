@@ -2,7 +2,7 @@
 
 	$executionStartTime = microtime(true) / 1000;
 
-    $url='http://api.geonames.org/countryCodeJSON?formatted=true&lat=' . $_REQUEST['latGeo'] . '&lng=' . $_REQUEST['latGeo'] . '&username=benpenny1&style=full';
+    $url='http://api.geonames.org/countryCodeJSON?formatted=true&lat=' . $_REQUEST['latGeo'] . '&lng=' . $_REQUEST['lngGeo'] . '&username=benpenny1&style=full';
     
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
