@@ -11,6 +11,7 @@ var layerOne = L.tileLayer(streetMap, {
     maxNativeZoom: 18
 });
 
+
 var map = L.map('mapid', {
 
     center: [0,0],
@@ -25,6 +26,24 @@ var map = L.map('mapid', {
     keyboard: true
 
 });
+
+// var cityIcon = L.icon({
+//     iconUrl: 'img/city.png',
+//     shadowUrl: 'img/city2.png',
+
+//     iconSize:     [38, 95], // size of the icon
+//     shadowSize:   [50, 64], // size of the shadow
+//     iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+//     shadowAnchor: [4, 62],  // the same for the shadow
+//     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+// });
+
+var circle = L.circle([51.508, -0.11], {
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5,
+    radius: 500
+}).addTo(map);
 
 L.easyButton('fa-plane', function(btn, map){
     $('#travelInfo').modal('show')
@@ -54,13 +73,25 @@ L.easyButton('fa-virus', function(btn, map){
 
 
 $('#whichCountry').change(function() {
+
+    var centerMap = map.getCenter();
+
+    var latMap = centerMap.latitude;
+
+    var lonMap = centerMap.longitude;
+
+    console.log(centerMap);
+    console.log(lonMap);
+    console.log(latMap);
                 
     $.ajax({
         url: "libs/php/gazetteer.php",
         type: 'POST',
         dataType: 'json',
         data: {
-            Code: $('#whichCountry').val()
+            Code: $('#whichCountry').val(),
+            lon: lonMap,
+            lat: latMap
         },
         
         success: function(result) {
@@ -117,20 +148,17 @@ $('#whichCountry').change(function() {
                 $('#imgFlag').attr({"src": result['data']['rest']["flag"], "width": "25%", "height": "10%"});
 
                 $('#txtName4').html(result['data']['rest']["name"]);
-                
-                let index2 = 0;
-                let hols = [];
-                let holsDates = [];
-                
-                while (index2 < result['data']['holidays'].length) {
-                    
-                    hols.push(result['data']['holidays'][index2]["name"]);
-                    holsDates.push(result['data']['holidays'][index2]["date"]);
-                    $('#txtHol').html(hols.map(function(value, index2) {
-                        return value + ' - ' + holsDates[index2] + '~~';
-                    }));
-                    index2 += 1;
-                }
+
+                var listCount;
+
+                $.each(result['data']['holidays'], function(index) {
+
+                    listCount++;
+                    var newRow = "<tr><td>" + listCount + "</td><td>" + result['data']['holidays'][index].name + "</td><td>" + result['data']['holidays'][index].date + "</td></tr>";
+                    $("#myTable").append(newRow);
+                   
+
+                })
                 
 
                 $('#txtName5').html(result['data']['rest']["name"]);
@@ -157,6 +185,34 @@ $('#whichCountry').change(function() {
                 $('#txtEu').html("True");
             };
 
+            var cityList;
+
+            $.each(result['data']['cities']['data'], function(index) {
+
+                cityList++;
+                var marker = L.circle([result['data']['cities']['data'][index].latitude, result['data']['cities']['data'][index].longitude], {
+                    color: 'red',
+                    fillColor: '#f03',
+                    fillOpacity: 0.5,
+                    radius: 500
+                }).addTo(map);
+
+
+                
+            });
+
+            var hotelList;
+
+            $.each(result['data']['accomodation']['features'], function(index) {
+
+                hotelList++;
+                var marker2 = L.circle([result['data']['accomodation']['features'][index].properties.lon, result['data']['accomodation']['features'][index].properties.lat], {
+                    color: 'green',
+                    fillColor: '#f03',
+                    fillOpacity: 0.5,
+                    radius: 500
+                }).addTo(map);
+            });
             
         },
 
