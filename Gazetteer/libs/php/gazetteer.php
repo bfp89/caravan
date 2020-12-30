@@ -49,6 +49,12 @@ error_reporting(E_ALL);
 
 	$geonames = json_decode($result2,true);
 
+	$capital = $geonames['geonames'][0]['capital'];
+	$north = $geonames['geonames'][0]['north'];
+	$east  = $geonames['geonames'][0]['east'];
+	$south = $geonames['geonames'][0]['south'];
+	$west = $geonames['geonames'][0]['west'];
+
 	$url3='http://api.worldbank.org/v2/country/' . $_REQUEST['Code'] . '?format=json';
 
 	$ch3 = curl_init();
@@ -87,19 +93,6 @@ error_reporting(E_ALL);
 
 	$holidays = json_decode($result5,true);
 
-	$url6= 'http://newsapi.org/v2/top-headlines?country=' . $_REQUEST['Code'] . '&apiKey=c5543d7647934d5fb97991e28fadd384';
-
-	$ch6 = curl_init();
-	curl_setopt($ch6, CURLOPT_SSL_VERIFYPEER, false);
-	curl_setopt($ch6, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch6, CURLOPT_URL,$url6);
-
-	$result6=curl_exec($ch6);
-
-	curl_close($ch6);
-
-	$news = json_decode($result6,true);
-
 	$url7='https://api.covid19api.com/country/' . $_REQUEST['Code'] . '/status/confirmed/live';
 
 	$ch7 = curl_init();
@@ -114,7 +107,7 @@ error_reporting(E_ALL);
 	$covid = json_decode($result7,true);
 
 	
-	$url8='https://api.geoapify.com/v2/places?categories=accommodation&bias=proximity:' . $_REQUEST['lon'] . ',' . $_REQUEST['lat'] . '&limit=200&apiKey=c04f6986ce8d402f948f34996806fe98';
+	$url8='https://api.geoapify.com/v2/places?categories=airport.international&filter=rect:' . $west . ',' . $north . ',' . $east . ',' . $south . '&limit=30&apiKey=c04f6986ce8d402f948f34996806fe98';
 
 
 	$ch8 = curl_init();
@@ -126,9 +119,9 @@ error_reporting(E_ALL);
 
 	curl_close($ch8);
 
-	$accommodation = json_decode($result8,true);
+	$airports = json_decode($result8,true);
 
-	$url9 ='http://geodb-free-service.wirefreethought.com/v1/geo/cities?limit=10&offset=0&minPopulation=1000000&countryIds=' . $_REQUEST['Code'];
+	$url9 ='https://api.geoapify.com/v2/places?categories=natural.forest&filter=rect:' . $west . ',' . $north . ',' . $east . ',' . $south . '&limit=100&apiKey=c04f6986ce8d402f948f34996806fe98';
 
 	$ch9 = curl_init();
 	curl_setopt($ch9, CURLOPT_SSL_VERIFYPEER, false);
@@ -139,7 +132,35 @@ error_reporting(E_ALL);
 
 	curl_close($ch9);
 
-	$cities = json_decode($result9,true);
+	$markers = json_decode($result9,true);
+
+	$url10 ='http://api.weatherapi.com/v1/forecast.json?key=9768cea197524aff9f1151546202212&q=' . $capital . '&days=5';
+
+	$ch10 = curl_init();
+	curl_setopt($ch10, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch10, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch10, CURLOPT_URL,$url10);
+
+	$result10=curl_exec($ch10);
+
+	curl_close($ch10);
+
+	$weather = json_decode($result10,true);
+
+	$url6= 'http://newsapi.org/v2/top-headlines?country=' . $_REQUEST['Code'] . '&apiKey=c5543d7647934d5fb97991e28fadd384';
+
+	$ch6 = curl_init();
+	curl_setopt($ch6, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch6, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch6, CURLOPT_URL,$url6);
+
+	$result6=curl_exec($ch6);
+
+	curl_close($ch6);
+
+	$news = json_decode($result6,true);
+
+
 
 	$output['status']['code'] = "200";
 	$output['status']['name'] = "ok";
@@ -151,10 +172,11 @@ error_reporting(E_ALL);
 	$output['data']['worldBank'] = $worldBank;
 	$output['data']['apiCast'] = $apiCast;
 	$output['data']['holidays'] = $holidays;
+	$output['data']['covid'] = end($covid);
+	$output['data']['airports'] = $airports;
+	$output['data']['markers'] = $markers;
+	$output['data']['weather'] = $weather;
 	$output['data']['news'] = $news;
-	$output['data']['covid'] = $covid;
-	$output['data']['accommodation'] = $accommodation;
-	$output['data']['cities'] = $cities;
 	
 	header('Content-Type: application/json; charset=UTF-8');
 
