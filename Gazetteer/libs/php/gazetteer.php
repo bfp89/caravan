@@ -121,7 +121,7 @@ error_reporting(E_ALL);
 
 	$airports = json_decode($result8,true);
 
-	$url9 ='https://api.geoapify.com/v2/places?categories=natural.forest&filter=rect:' . $west . ',' . $north . ',' . $east . ',' . $south . '&limit=100&apiKey=c04f6986ce8d402f948f34996806fe98';
+	$url9 ='https://api.geoapify.com/v2/places?categories=natural.forest&filter=rect:' . $west . ',' . $north . ',' . $east . ',' . $south . '&limit=100&lang=en&apiKey=c04f6986ce8d402f948f34996806fe98';
 
 	$ch9 = curl_init();
 	curl_setopt($ch9, CURLOPT_SSL_VERIFYPEER, false);

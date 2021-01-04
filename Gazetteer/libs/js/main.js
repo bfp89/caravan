@@ -180,14 +180,13 @@ $('#whichCountry').change(function() {
                 $('#eu').attr({"class": "table-success"});
             };
 
-            var airportIcon = L.icon({
-                iconUrl: 'img/airport.png',
+            var airportIcon = L.ExtraMarkers.icon({
+                icon: 'fas fa-plane-departure',
+                markerColor: 'green',
+                shape: 'square',
+                prefix: 'fa'
+              });
             
-                iconSize:     [16, 20], // size of the icon
-                iconAnchor:   [8, 36], // point of the icon which will correspond to marker's location
-                shadowAnchor: [4, 62],  // the same for the shadow
-                popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-            });
 
                 // $.each(result['data']['markers']['features'], function(index) {
  
