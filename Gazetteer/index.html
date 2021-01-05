@@ -25,6 +25,8 @@
         <link rel="stylesheet" 
         href="libs/css/leaflet.extra-markers.min.css"/>
 
+        <link rel="stylesheet"
+        href="libs/css/spin.css"/>
 
 
     </head>
@@ -41,7 +43,7 @@
 
         
 
-        <div id="mapid" class="container-fluid fa-star">
+        <div id="mapid" class="container-fluid">
         </div>
 
 
@@ -51,7 +53,9 @@
             <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="modalLabel">What if I visit?</h5>
+                <h5 class="modal-title" id="modalLabel">Travel Info
+                    <img align="right" class="imgFlag" src="">
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -63,30 +67,30 @@
                         <table class="table table-hover table-striped">
             
                             <tr>
-                                <td align="center">
-                                    Languages spoken: 
+                                <td align="left">
+                                    <strong>Languages spoken
                                 </td>
-                                <td id="txtLang">
+                                <td align="right" id="txtLang">
                                     
                                 </td>
             
                             </tr> 
 
                             <tr>
-                                <td align="center">
-                                    National Currency: 
+                                <td align="left">
+                                    <strong>National Currency
                                 </td>
-                                <td id="txtCurr">
+                                <td align="right" id="txtCurr">
                                     
                                 </td>
             
                             </tr>
 
                             <tr>
-                                <td align="center">
-                                    To call, add:
+                                <td align="left">
+                                   <strong> To call, add
                                 </td>
-                                <td id="txtCall">
+                                <td align="right" id="txtCall">
                                     
                                 </td>
             
@@ -109,7 +113,9 @@
             <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="modalLabel">Geography Facts</h5>
+                <h5 class="modal-title" id="modalLabel">Geography Facts
+                    <img align="right" class="imgFlag" src="">
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -121,40 +127,40 @@
                         <table class="table table-hover table-striped">
             
                             <tr>
-                                <td align="center">
-                                    Capital City: 
+                                <td align="left">
+                                   <strong> Capital City
                                 </td>
-                                <td id="txtCapital">
+                                <td align="right" id="txtCapital">
                                     
                                 </td>
             
                             </tr>
 
                             <tr>
-                                <td align="center">
-                                    Population: 
+                                <td align="left">
+                                 <strong>   Population
                                 </td>
-                                <td id="txtPop">
+                                <td align="right" id="txtPop">
                                     
                                 </td>
             
                             </tr>
 
                             <tr>
-                                <td align="center">
-                                    Area in SqM: 
+                                <td align="left">
+                                  <strong>  Area in SqM
                                 </td>
-                                <td id="txtArea">
+                                <td align="right" id="txtArea">
                                     
                                 </td>
             
                             </tr>
 
                             <tr>
-                                <td align="center">
-                                    Continent/Region:
+                                <td align="left">
+                                    <strong>Continent/Region
                                 </td>
-                                <td id="txtCont">
+                                <td align="right" id="txtCont">
                                     
                                 </td>
             
@@ -162,10 +168,10 @@
 
                             
                             <tr>
-                                <td align="center">
-                                    Borders with: 
+                                <td align="left">
+                                   <strong> Borders with
                                 </td>
-                                <td id="txtBorder">
+                                <td align="right" id="txtBorder">
                                     
                                 </td>
             
@@ -187,7 +193,9 @@
             <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="modalLabel">Country Facts</h5>
+                <h5 class="modal-title" id="modalLabel">Country Facts
+                    <img align="right"class="imgFlag" src="">
+                    </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -199,35 +207,24 @@
                         <table class="table table-hover table-striped">
                             
                             <tr>
-                                <td align="center">
-                                    National income: 
+                                <td align="left">
+                                    <strong>National income</strong>
                                 </td>
-                                <td id="txtIncome">
+                                <td align="right" id="txtIncome">
                                     
                                 </td>
             
                             </tr>
 
                             <tr id=eu class="">
-                                <td align="center">
-                                    Member of the EU: 
+                                <td align="left">
+                                    <strong>Member of the EU</strong>
                                 </td>
-                                <td id="txtEu">
+                                <td align="right" id="txtEu">
                                     
                                 </td>
             
                             </tr>
-
-                            <tr>
-                                <td align="center">
-                                    Flag: 
-                                </td>
-                                <td>
-                                    <img id="imgFlag" src="">
-                                </td>
-            
-                            </tr>
-
                             
             
                         </table>
@@ -247,7 +244,9 @@
             <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="modalLabel">What holidays do they celebrate, and when?</h5>
+                <h5 class="modal-title" id="modalLabel">National Holidays
+                    <img align="right" class="imgFlag" src="">
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -258,7 +257,6 @@
             
                         
                         <table id=myTable class="table table-hover table-striped">                         
-                            
 
                         </table>
                     </div>
@@ -276,7 +274,9 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel">Top News Headlines today</h5>
+                    <h5 class="modal-title" id="modalLabel">Top News Headlines Today
+                        <img align="right" class="imgFlag" src="">
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -285,7 +285,7 @@
                     <div class="modal-body modals">
                         <div>
                 
-                            <table id="myTable3" class="table table-hover table-striped">
+                            <table id="myTable2" class="table table-hover table-striped">
                                 
                             </table>
                         </div>
@@ -303,7 +303,9 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content ">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel">Total Live Covid-19 Cases</h5>
+                    <h5 class="modal-title" id="modalLabel">Total Live Covid-19 Cases
+                        <img align="right" class="imgFlag" src="">
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -315,10 +317,10 @@
                             <table class="table table-hover table-striped">
 
                                 <tr>
-                                    <td align="center">
-                                        Total Confirmed Covid cases:
+                                    <td align="left">
+                                        <strong>Total Confirmed Covid cases</strong>
                                     </td>
-                                    <td id="txtCases">
+                                    <td align="right" id="txtCases">
                                         
                                     </td>
                 
@@ -340,7 +342,9 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content ">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel">3 day forecast</h5>
+                    <h5 class="modal-title" id="modalLabel">3 day forecast
+                        <img align="right" class="imgFlag" src="">
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -352,11 +356,11 @@
                             <table id="table2" class="table table-hover table-striped">
                                 <thead  class="thead-light">
                                     <tr>
-                                        <th align="center">
-                                            Today
+                                        <th>
+                                            <strong>Today</strong>
                                         </th>
                                         <th>
-                                            Tomorrow
+                                            <strong>Tomorrow</strong>
                                         </th>
                                         <th id=day3>
                                             
@@ -395,40 +399,40 @@
                                     <td id=maxTemp2>
                                         
                                     </td>
-                                    <td id=maxTemp3>
+                                    <td  id=maxTemp3>
                                         
                                 </tr>
 
                                 <tr>
-                                    <td id=minTemp1>
+                                    <td  id=minTemp1>
                                         
                                     </td>
-                                    <td id=minTemp2>
+                                    <td  id=minTemp2>
                                         
                                     </td>
-                                    <td id=minTemp3>
+                                    <td  id=minTemp3>
                                         
                                 </tr>
 
                                 <tr>
-                                    <td id=sunrise1>
+                                    <td  id=sunrise1>
                                         
                                     </td>
-                                    <td id=sunrise2>
+                                    <td  id=sunrise2>
                                         
                                     </td>
-                                    <td id=sunrise3>
+                                    <td  id=sunrise3>
                                         
                                 </tr>
 
                                 <tr>
-                                    <td id=sunset1>
+                                    <td  id=sunset1>
                                         
                                     </td>
-                                    <td id=sunset2>
+                                    <td  id=sunset2>
                                         
                                     </td>
-                                    <td id=sunset3>
+                                    <td  id=sunset3>
                                         
                                 </tr>
 
@@ -462,12 +466,18 @@
         <script src="libs/vendor/easyButton.js">
         </script>
 
-        <script src="libs/js/main.js">
-        </script>
-
         <script src="libs/vendor/leaflet.extra-markers.min.js">
         </script>
 
+        <script src="libs/vendor/spin.js">
+        </script>
+
+        <script src="libs/vendor/leaflet.spin.js">
+        </script>
+
+        <script src="libs/js/main.js">
+        </script>
+        
         
     </body>
 </html>

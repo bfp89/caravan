@@ -30,7 +30,7 @@ var map = L.map('mapid', {
 
 
 
-L.easyButton('fa-plane', function(btn, map){
+L.easyButton('fa-passport', function(btn, map){
     $('#travelInfo').modal('show')
 }).addTo(map);
 
@@ -63,18 +63,16 @@ L.easyButton('fa-cloud-sun-rain', function(btn, map){
 
 $('#whichCountry').change(function() {
 
-                
+    map.spin(true);           
     $.ajax({
         url: "libs/php/gazetteer.php",
         type: 'POST',
         dataType: 'json',
         data: {
             Code: $('#whichCountry').val()
-
         },
         
         success: function(result) {
-            console.log(result);
 
             if (map.hasLayer(border)) {
 
@@ -101,11 +99,13 @@ $('#whichCountry').change(function() {
                 $('#txtName').html(result['data']['rest']["name"]);
                 
                 $('#txtCurr').html(result['data']['rest']["currencies"][0]["name"]);
-                $('#txtBorder').html(result['data']['rest']["borders"]);
+
+                let borders = result['data']['rest']["borders"];
+
+                $('#txtBorder').html(borders.join(', '));
                 $('#txtCall').html(result['data']['rest']["callingCodes"]);
 
-                $('#txtName2').html(result['data']['rest']["name"]);
-
+                
                 let index = 0;
                 let langs = [];
                 while (index < result['data']['rest']["languages"].length) {
@@ -123,24 +123,27 @@ $('#whichCountry').change(function() {
                 $('#txtName3').html(result['data']['rest']["name"]);
                 $('#txtIncome').html(result['data']['worldBank'][1][0]["incomeLevel"]["value"]);
                 $('#txtEu').html(result['data']['apiCast']["result"]);
-                $('#imgFlag').attr({"src": result['data']['rest']["flag"], "width": "25%", "height": "10%"});
+                $('.imgFlag').attr({"src": result['data']['rest']["flag"], "width": "12.5%", "height": "5%"});
 
                 $('#txtName4').html(result['data']['rest']["name"]);
 
-
+                $('#myTable').html("");
                 $.each(result['data']['holidays'], function(index) {
-                    
-                    var newRow = "<tr><td>" + (index + 1) + "</td><td>" + result['data']['holidays'][index].name + "</td><td>" + result['data']['holidays'][index].date + "</td></tr>";
-                    $("#myTable").append(newRow);
+                    if (result['data']['holidays'][index].name == null) {
+
+                    } else {
+                        var newRow2 = "<tr><td>" + result['data']['holidays'][index].name + "</td><td>" + result['data']['holidays'][index].date + "</td></tr>";
+                        $("#myTable").append(newRow2);
+                    }
                    
 
                 });
                    
-                
+                $('#myTable2').html("");
                 $.each(result['data']['news']['articles'], function(index) {
                     var link = result['data']['news']['articles'][index]['url'];
                     var newRow2 = "<tr><td>" + (index + 1) + `</td><td><a href='${link}' target=_blank>` + result['data']['news']['articles'][index]['title'] + "</td></tr>";
-                    $("#myTable3").append(newRow2);
+                    $("#myTable2").append(newRow2);
                    
 
                 });
@@ -186,14 +189,6 @@ $('#whichCountry').change(function() {
                 shape: 'square',
                 prefix: 'fa'
               });
-            
-
-                // $.each(result['data']['markers']['features'], function(index) {
- 
-                //         L.marker([result['data']['markers']['features'][index]['properties'].lat, 
-                //         result['data']['markers']['features'][index]['properties'].lon], {icon: cityIcon
-                //         }).addTo(map);
-                // });
 
                 $.each(result['data']['airports']['features'], function(index) {
                         airportName = result['data']['airports']['features'][index]['properties'].name;
@@ -203,7 +198,7 @@ $('#whichCountry').change(function() {
                         }).addTo(map).bindPopup(airportName);
                 });
 
-            
+            map.spin(false);  
         
         },
 
@@ -223,13 +218,9 @@ $(document).ready(function() {
         
         success: function(result) {
 
-            console.log(result);
-
             $('#whichCountry').html('');
 
-
             $.each(result.data, function(index) {
-            
                 
                 $('#whichCountry').append($("<option>", {
             
@@ -258,8 +249,6 @@ $(document).ready(function() {
                         },
                         success: function(result) {
                             
-                            console.log(result.data);
-
                             $('#whichCountry').val(result.data.countryCode).change();
                         },
     

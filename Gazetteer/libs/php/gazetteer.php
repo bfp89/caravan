@@ -32,8 +32,8 @@ error_reporting(E_ALL);
 	curl_close($ch);
 
 	$rest = json_decode($result,true);	
-//to remove properties
-//	unset($rest[])
+	
+	
 
 	$url2='http://api.geonames.org/countryInfoJSON?formatted=true&lang=en&country=' . $_REQUEST['Code'] . '&username=benpenny1&style=full';
 	
@@ -81,7 +81,7 @@ error_reporting(E_ALL);
 
 	$apiCast = json_decode($result4,true);
 
-	$url5='https://holidays.abstractapi.com/v1/?api_key=5e0ccb7c96a3403ba76bfdc4d7c28e53&country=' . $_REQUEST['Code'];
+	$url5='https://getfestivo.com/v2/holidays?api_key=22cb919623bfd8976e4b761cd8d3fd46&country=' . strtoupper($_REQUEST['Code']) . '&language=en&year=2020';
 	$ch5 = curl_init();
 	curl_setopt($ch5, CURLOPT_SSL_VERIFYPEER, false);
 	curl_setopt($ch5, CURLOPT_RETURNTRANSFER, true);
@@ -171,12 +171,14 @@ error_reporting(E_ALL);
 	$output['data']['geonames'] = $geonames['geonames'];
 	$output['data']['worldBank'] = $worldBank;
 	$output['data']['apiCast'] = $apiCast;
-	$output['data']['holidays'] = $holidays;
+	$output['data']['holidays'] = $holidays['holidays'];
 	$output['data']['covid'] = end($covid);
 	$output['data']['airports'] = $airports;
 	$output['data']['markers'] = $markers;
 	$output['data']['weather'] = $weather;
 	$output['data']['news'] = $news;
+
+	unset($rest['alpha3code']);
 	
 	header('Content-Type: application/json; charset=UTF-8');
 
