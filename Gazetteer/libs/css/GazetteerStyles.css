@@ -4,7 +4,7 @@ body {
     
 }
 #mapid {
-height: calc(100vh - 9vh);
+height: calc(100vh - 62.4px);
 }
 
 html, body {
@@ -81,7 +81,7 @@ button.close {
 
 .imgFlag {
     border: .5px solid;
-    box-shadow: 5px 8px 5px #050505;
+    box-shadow: 1.5px 2px 1.5px #050505;
 }
 
 

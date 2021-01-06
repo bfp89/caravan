@@ -148,7 +148,6 @@ $('#whichCountry').change(function() {
 
                 });
 
-                $('#txtName6').html(result['data']['rest']["name"]);
                 $('#txtCases').html(result['data']['covid']['Cases']);
 
                 $('#day3').html(result['data']['weather']['forecast']['forecastday'][2]['date']);
