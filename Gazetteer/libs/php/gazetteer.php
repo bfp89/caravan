@@ -93,7 +93,7 @@ error_reporting(E_ALL);
 
 	$holidays = json_decode($result5,true);
 
-	$url7='https://api.covid19api.com/country/' . $_REQUEST['Code'] . '/status/confirmed/live';
+	$url7='https://api.covid19api.com/total/country/' . $_REQUEST['Code'] . '/status/confirmed';
 
 	$ch7 = curl_init();
 	curl_setopt($ch7, CURLOPT_SSL_VERIFYPEER, false);
@@ -105,8 +105,6 @@ error_reporting(E_ALL);
 	curl_close($ch7);
 
 	$covid = json_decode($result7,true);
-
-	
 
 	
 	$url8='https://api.geoapify.com/v2/places?categories=airport.international&filter=rect:' . $west . ',' . $north . ',' . $east . ',' . $south . '&limit=30&apiKey=c04f6986ce8d402f948f34996806fe98';
