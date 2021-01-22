@@ -1,0 +1,41 @@
+table {
+    text-align: center;
+    width: 50%;
+}
+
+body {
+   background-image: url("../../img/background.jpg");
+   background-repeat: no-repeat;
+   background-attachment: fixed;
+}
+
+
+a {
+    color:rgb(119, 115, 118);
+}
+
+.card {
+    display: inline-block;
+    padding: 10px;
+    margin-top: 10px;
+    margin-right: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 15%;
+    height: 15%;
+    text-align: center;
+}
+
+#addUser {
+    color: white;
+    background-color: rgb(119, 115, 118);
+}
+
+#cards {
+    margin: 30px;
+}
+
+#vDetails {
+    color: white;
+    background-color: rgb(119, 115, 118);
+}
+

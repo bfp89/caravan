@@ -1,0 +1,92 @@
+<!doctype html>
+
+<html lang="en">
+
+	<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1,  user-scalable=no" />
+
+        <link rel="icon" href="favicon.png">
+
+        <link rel="stylesheet" 
+        href="libs/css/bootstrap.min.css"/>
+
+        <link rel="stylesheet" 
+        href="libs/css/faAll.css"/>
+
+        <link rel="stylesheet" 
+        href="libs/css/companyDir.css"/>        
+
+
+		<title>Company Directory</title>
+
+	</head>
+
+	<body>
+
+        <nav class="navbar navbar-expand-md navbar-light bg-light">
+            <a class="navbar-brand active" href="#">
+                <img src="favicon.png" width="50" height="50" alt="Home" loading="lazy">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+              <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Department
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="jobDropdown">
+                        <a class="dropdown-item" id="HR" value="Human Resources">HR</a>
+                        <a class="dropdown-item" id="Sales" value="Sales">Sales</a>
+                        <a class="dropdown-item" id="Marketing" value="Marketing">Marketing</a>
+                        <a class="dropdown-item" id="Legal" value="Legal">Legal</a>
+                        <a class="dropdown-item" id="Services" value="Services">Services</a>
+                        <a class="dropdown-item" id="Research" value="Research and Development">Research and Development</a>
+                        <a class="dropdown-item" id="Product" value="Product Management">Product Management</a>
+                        <a class="dropdown-item" id="Training" value="Training">Training</a>
+                        <a class="dropdown-item" id="Support" value="Support">Support</a>
+                        <a class="dropdown-item" id="Engineering" value="Engineering">Engineering</a>
+                        <a class="dropdown-item" id="Accounting" value="Accounting">Accounting</a>
+                        <a class="dropdown-item" id="Business Development" value="Business Development">Business Development</a>
+                  </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Location
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="depDropdown">
+                        <a class="dropdown-item" id="London" value="London">London</a>
+                        <a class="dropdown-item" id="Munich" value="Munich">Munich</a>
+                        <a class="dropdown-item" id="NewYork" value="New York">New York</a>
+                        <a class="dropdown-item" id="Paris" value="Paris">Paris</a>
+                        <a class="dropdown-item" id="Rome" value="Rome">Rome</a>
+                </div>
+                </li>
+            </ul>
+            </div>
+            <form class="form-inline">
+                <input class="form-control mr-lg-2" type="search" placeholder="Search employee name.." aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+              </form> 
+          </nav>
+        <br>
+    <div id="cards">
+        <button type="button" class="btn btn-info" id="addUser"><i class="fa fa-user-plus"></i></button>
+        <br>       
+    </div>
+    <div id="modals">
+    </div>
+
+        <script src="libs/js/jquery-3.5.1.min.js">
+        </script>
+        <script src="libs/vendor/bootstrap.min.js" >
+        </script>
+        <script src="libs/vendor/faAll.js">
+        </script>
+        <script src="libs/js/main.js">
+        </script>
+	</body>
+</html>
