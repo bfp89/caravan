@@ -14,8 +14,18 @@ a {
     color:rgb(119, 115, 118);
 }
 
+li{
+    cursor: pointer;
+}
+
+select {
+    position: float; 
+    top: 10px; 
+    right: 10px; 
+}
+
 .card {
-    display: inline-block;
+    display: none;
     padding: 10px;
     margin-top: 10px;
     margin-right: 20px;
@@ -23,6 +33,11 @@ a {
     max-width: 15%;
     height: 15%;
     text-align: center;
+
+}
+
+.show {
+    display: inline-block;
 }
 
 #addUser {
@@ -39,3 +54,7 @@ a {
     background-color: rgb(119, 115, 118);
 }
 
+#nameDrop {
+    height: 250px;
+    overflow: auto;
+}

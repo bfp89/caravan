@@ -25,9 +25,9 @@
 	<body>
 
         <nav class="navbar navbar-expand-md navbar-light bg-light">
-            <a class="navbar-brand active" href="#">
+            <button id="allButton" class="btn active" onclick="filterSelection('all')">
                 <img src="favicon.png" width="50" height="50" alt="Home" loading="lazy">
-            </a>
+            </button>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -38,39 +38,46 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Department
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="jobDropdown">
-                        <a class="dropdown-item" id="HR" value="Human Resources">HR</a>
-                        <a class="dropdown-item" id="Sales" value="Sales">Sales</a>
-                        <a class="dropdown-item" id="Marketing" value="Marketing">Marketing</a>
-                        <a class="dropdown-item" id="Legal" value="Legal">Legal</a>
-                        <a class="dropdown-item" id="Services" value="Services">Services</a>
-                        <a class="dropdown-item" id="Research" value="Research and Development">Research and Development</a>
-                        <a class="dropdown-item" id="Product" value="Product Management">Product Management</a>
-                        <a class="dropdown-item" id="Training" value="Training">Training</a>
-                        <a class="dropdown-item" id="Support" value="Support">Support</a>
-                        <a class="dropdown-item" id="Engineering" value="Engineering">Engineering</a>
-                        <a class="dropdown-item" id="Accounting" value="Accounting">Accounting</a>
-                        <a class="dropdown-item" id="Business Development" value="Business Development">Business Development</a>
+                    <div id="depDrop" class="dropdown-menu" aria-labelledby="jobDropdown">
+                        <a class="dropdown-item" id="HR" value="Human Resources" onclick="filterSelection('HumanResources')">HR</a>
+                        <a class="dropdown-item" id="Sales" value="Sales" onclick="filterSelection('Sales')">Sales</a>
+                        <a class="dropdown-item" id="Marketing" value="Marketing" onclick="filterSelection('Marketing')">Marketing</a>
+                        <a class="dropdown-item" id="Legal" value="Legal" onclick="filterSelection('Legal')">Legal</a>
+                        <a class="dropdown-item" id="Services" value="Services" onclick="filterSelection('Services')">Services</a>
+                        <a class="dropdown-item" id="Research" value="Research and Development" onclick="filterSelection('ResearchandDevelopment')">Research and Development</a>
+                        <a class="dropdown-item" id="Product" value="Product Management" onclick="filterSelection('ProductManagement')">Product Management</a>
+                        <a class="dropdown-item" id="Training" value="Training" onclick="filterSelection('Training')">Training</a>
+                        <a class="dropdown-item" id="Support" value="Support" onclick="filterSelection('Support')">Support</a>
+                        <a class="dropdown-item" id="Engineering" value="Engineering" onclick="filterSelection('Engineering')">Engineering</a>
+                        <a class="dropdown-item" id="Accounting" value="Accounting" onclick="filterSelection('Accounting')">Accounting</a>
+                        <a class="dropdown-item" id="Business Development" value="Business Development" onclick="filterSelection('BusinessDevelopment')">Business Development</a>
                   </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Location
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="depDropdown">
-                        <a class="dropdown-item" id="London" value="London">London</a>
-                        <a class="dropdown-item" id="Munich" value="Munich">Munich</a>
-                        <a class="dropdown-item" id="NewYork" value="New York">New York</a>
-                        <a class="dropdown-item" id="Paris" value="Paris">Paris</a>
-                        <a class="dropdown-item" id="Rome" value="Rome">Rome</a>
+                    <div id="locationDrop"class="dropdown-menu" aria-labelledby='locationDropdown'>
+                        <a class="dropdown-item" id="London" value="London" onclick="filterSelection('London')">London</a>
+                        <a class="dropdown-item" id="Munich" value="Munich" onclick="filterSelection('Munich')">Munich</a>
+                        <a class="dropdown-item" id="NewYork" value="New York" onclick="filterSelection('NewYork')">New York</a>
+                        <a class="dropdown-item" id="Paris" value="Paris" onclick="filterSelection('Paris')">Paris</a>
+                        <a class="dropdown-item" id="Rome" value="Rome" onclick="filterSelection('Rome')">Rome</a>
                 </div>
                 </li>
+                <li class="nav-item dropdown">
+                  <select id="EmployeeName" class="form-control" type="text">
+                    <option id="options">Search Employee Name</option>
+                 </select>
+                  <!-- <a id="EmployeeName" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Employee Name
+                  </a>
+                  <div id="nameDrop" class="dropdown-menu" aria-labelledby="nameDropdown">
+
+                  </div> -->
+              </li>
             </ul>
-            </div>
-            <form class="form-inline">
-                <input class="form-control mr-lg-2" type="search" placeholder="Search employee name.." aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-              </form> 
+            </div> 
           </nav>
         <br>
     <div id="cards">
