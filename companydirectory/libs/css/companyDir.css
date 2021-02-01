@@ -19,7 +19,7 @@ li{
 }
 
 select {
-    position: float; 
+    float: right; 
     top: 10px; 
     right: 10px; 
 }
@@ -30,7 +30,7 @@ select {
     margin-top: 10px;
     margin-right: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    max-width: 15%;
+    width: 15%;
     height: 15%;
     text-align: center;
 
@@ -40,7 +40,11 @@ select {
     display: inline-block;
 }
 
-#addUser {
+.modal-header {
+    text-align: center;
+}
+
+#addUserBtn {
     color: white;
     background-color: rgb(119, 115, 118);
 }
@@ -55,6 +59,22 @@ select {
 }
 
 #nameDrop {
-    height: 250px;
-    overflow: auto;
-}
+    list-style-type: none;
+    padding: 10;
+    margin: 10;
+  }
+  
+  #nameDrop li a {
+    border: 1px solid #ddd;
+    margin-top: -1px;
+    background-color: #f6f6f6;
+    padding: 12px;
+    text-decoration: none;
+    font-size: 18px; 
+    color: black; 
+    display: block; 
+  }
+
+  #nameDrop li a:hover:not(.header) {
+    background-color: #eee;
+  }

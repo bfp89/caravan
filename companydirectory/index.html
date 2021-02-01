@@ -65,26 +65,73 @@
                         <a class="dropdown-item" id="Rome" value="Rome" onclick="filterSelection('Rome')">Rome</a>
                 </div>
                 </li>
-                <li class="nav-item dropdown">
-                  <select id="EmployeeName" class="form-control" type="text">
-                    <option id="options">Search Employee Name</option>
-                 </select>
-                  <!-- <a id="EmployeeName" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Employee Name
-                  </a>
-                  <div id="nameDrop" class="dropdown-menu" aria-labelledby="nameDropdown">
+                
+                <input type="text" id="nameInput" class="form-control" onkeyup="nameInput()" placeholder="Search by name..">
+                  <ul id="nameDrop">
+    
+                  </ul>
 
-                  </div> -->
-              </li>
+                <!-- <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Employee Name
+                    </a>
+                    <div id="nameDrop" class="dropdown-menu" aria-labelledby="nameDropdown">
+  
+                    </div>
+                </li> -->
             </ul>
             </div> 
           </nav>
         <br>
     <div id="cards">
-        <button type="button" class="btn btn-info" id="addUser"><i class="fa fa-user-plus"></i></button>
+        <button type="button" class="btn btn-info" id="addUserBtn" data-toggle="modal" data-target="#addUser"><i class="fa fa-user-plus"></i></button>
         <br>       
     </div>
     <div id="modals">
+      <div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="addTitle">Add Employee</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <table class='table table-striped table-hover'>
+                    <tr>
+                      <th>Last Name</th>
+                      <td><input placeholder="Enter Last Name"></input></td>
+                    </tr>
+                    <tr>
+                      <th>First Name</th>
+                      <td><input placeholder="Enter First Name"></input></td>
+                    </tr>
+                    <tr>
+                      <th>Department</th>
+                      <td><input placeholder="Department"></input></td>
+                    </tr>
+                    <tr>
+                      <th>Location</th>
+                      <td><input placeholder="Location"></input></td>
+                    </tr>
+                    <tr>
+                      <th>Email</th>
+                      <td><input placeholder="Email address"></input></td>
+                    </tr>
+                  </table>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
         <script src="libs/js/jquery-3.5.1.min.js">
