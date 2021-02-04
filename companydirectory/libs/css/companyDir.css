@@ -44,7 +44,7 @@ select {
     text-align: center;
 }
 
-#addUserBtn {
+.userBtns {
     color: white;
     background-color: rgb(119, 115, 118);
 }

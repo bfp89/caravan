@@ -25,7 +25,7 @@
 	<body>
 
         <nav class="navbar navbar-expand-md navbar-light bg-light">
-            <button id="allButton" class="btn active" onclick="filterSelection('all')">
+            <button id="allButton" class="btn active" val="all">
                 <img src="favicon.png" width="50" height="50" alt="Home" loading="lazy">
             </button>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,18 +39,18 @@
                       Department
                     </a>
                     <div id="depDrop" class="dropdown-menu" aria-labelledby="jobDropdown">
-                        <a class="dropdown-item" id="HR" value="Human Resources" onclick="filterSelection('HumanResources')">HR</a>
-                        <a class="dropdown-item" id="Sales" value="Sales" onclick="filterSelection('Sales')">Sales</a>
-                        <a class="dropdown-item" id="Marketing" value="Marketing" onclick="filterSelection('Marketing')">Marketing</a>
-                        <a class="dropdown-item" id="Legal" value="Legal" onclick="filterSelection('Legal')">Legal</a>
-                        <a class="dropdown-item" id="Services" value="Services" onclick="filterSelection('Services')">Services</a>
-                        <a class="dropdown-item" id="Research" value="Research and Development" onclick="filterSelection('ResearchandDevelopment')">Research and Development</a>
-                        <a class="dropdown-item" id="Product" value="Product Management" onclick="filterSelection('ProductManagement')">Product Management</a>
-                        <a class="dropdown-item" id="Training" value="Training" onclick="filterSelection('Training')">Training</a>
-                        <a class="dropdown-item" id="Support" value="Support" onclick="filterSelection('Support')">Support</a>
-                        <a class="dropdown-item" id="Engineering" value="Engineering" onclick="filterSelection('Engineering')">Engineering</a>
-                        <a class="dropdown-item" id="Accounting" value="Accounting" onclick="filterSelection('Accounting')">Accounting</a>
-                        <a class="dropdown-item" id="Business Development" value="Business Development" onclick="filterSelection('BusinessDevelopment')">Business Development</a>
+                        <a class="dropdown-item" id="HR" value="HumanResources">HR</a>
+                        <a class="dropdown-item" id="Sales" value="Sales">Sales</a>
+                        <a class="dropdown-item" id="Marketing" value="Marketing">Marketing</a>
+                        <a class="dropdown-item" id="Legal" value="Legal">Legal</a>
+                        <a class="dropdown-item" id="Services" value="Services">Services</a>
+                        <a class="dropdown-item" id="Research" value="ResearchandDevelopment">Research and Development</a>
+                        <a class="dropdown-item" id="Product" value="ProductManagement">Product Management</a>
+                        <a class="dropdown-item" id="Training" value="Training">Training</a>
+                        <a class="dropdown-item" id="Support" value="Support">Support</a>
+                        <a class="dropdown-item" id="Engineering" value="Engineering">Engineering</a>
+                        <a class="dropdown-item" id="Accounting" value="Accounting">Accounting</a>
+                        <a class="dropdown-item" id="Business Development" value="BusinessDevelopment">Business Development</a>
                   </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -58,33 +58,27 @@
                     Location
                     </a>
                     <div id="locationDrop"class="dropdown-menu" aria-labelledby='locationDropdown'>
-                        <a class="dropdown-item" id="London" value="London" onclick="filterSelection('London')">London</a>
-                        <a class="dropdown-item" id="Munich" value="Munich" onclick="filterSelection('Munich')">Munich</a>
-                        <a class="dropdown-item" id="NewYork" value="New York" onclick="filterSelection('NewYork')">New York</a>
-                        <a class="dropdown-item" id="Paris" value="Paris" onclick="filterSelection('Paris')">Paris</a>
-                        <a class="dropdown-item" id="Rome" value="Rome" onclick="filterSelection('Rome')">Rome</a>
+                        <a class="dropdown-item" id="London" value="London">London</a>
+                        <a class="dropdown-item" id="Munich" value="Munich">Munich</a>
+                        <a class="dropdown-item" id="NewYork" value="NewYork">New York</a>
+                        <a class="dropdown-item" id="Paris" value="Paris">Paris</a>
+                        <a class="dropdown-item" id="Rome" value="Rome">Rome</a>
                 </div>
                 </li>
                 
-                <input type="text" id="nameInput" class="form-control" onkeyup="nameInput()" placeholder="Search by name..">
-                  <ul id="nameDrop">
-    
-                  </ul>
-
-                <!-- <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Employee Name
-                    </a>
-                    <div id="nameDrop" class="dropdown-menu" aria-labelledby="nameDropdown">
-  
-                    </div>
-                </li> -->
-            </ul>
+                <div class="input-group mb-3">
+                  <input id="nameInput" type="text" class="form-control" placeholder="Search by Name.." aria-label="Search by Name" aria-describedby="nameSearch">
+                  <div class="input-group-append">
+                    <button id="nameSearch" class="btn btn-outline-secondary" type="button">Search</button>
+                  </div>
+                </div>
+              </ul>
             </div> 
-          </nav>
+        </nav>
         <br>
     <div id="cards">
-        <button type="button" class="btn btn-info" id="addUserBtn" data-toggle="modal" data-target="#addUser"><i class="fa fa-user-plus"></i></button>
+        <button type="button" class="btn btn-info userBtns" id="addUserBtn" data-toggle="modal" data-target="#addUser"><i class="fa fa-user-plus"></i></button>
+        <button type="button" class="btn btn-info userBtns" id="editUserBtn" data-toggle="modal" data-target="#editUser"><i class="fas fa-user-edit"></i></i></button>
         <br>       
     </div>
     <div id="modals">
@@ -99,34 +93,149 @@
             </div>
             <div class="modal-body">
               <form>
-                <div class="form-group">
-                  <table class='table table-striped table-hover'>
-                    <tr>
-                      <th>Last Name</th>
-                      <td><input placeholder="Enter Last Name"></input></td>
-                    </tr>
-                    <tr>
-                      <th>First Name</th>
-                      <td><input placeholder="Enter First Name"></input></td>
-                    </tr>
-                    <tr>
-                      <th>Department</th>
-                      <td><input placeholder="Department"></input></td>
-                    </tr>
-                    <tr>
-                      <th>Location</th>
-                      <td><input placeholder="Location"></input></td>
-                    </tr>
-                    <tr>
-                      <th>Email</th>
-                      <td><input placeholder="Email address"></input></td>
-                    </tr>
-                  </table>
+                <div class="form-group row">
+                  <div class="offset-1 col-10">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="far fa-address-card"></i>
+                        </div>
+                      </div> 
+                      <input id="formFirstName" name="formFirstName" placeholder="Enter First Name" type="text" class="form-control" required="required">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row"> 
+                  <div class="offset-1 col-10">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="far fa-address-card"></i>
+                        </div>
+                      </div> 
+                      <input id="formLastName" name="formLastName" placeholder="Enter Last Name" type="text" class="form-control" required="required">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row"> 
+                  <div class="offset-1 col-10">
+                    <select id="formDept" name="formDept" class="custom-select" required="required">
+                      <option value="" disabled selected>Select Department</option>
+                      <option value="Human Resources">HR</option>
+                      <option value="Sales">Sales</option>
+                      <option value="Marketing">Marketing</option>
+                      <option value="Legal">Legal</option>
+                      <option value="Services">Services</option>
+                      <option value="Research and Development">Research and Development</option>
+                      <option value="Product Management">Product Management</option>
+                      <option value="Training">Training</option>
+                      <option value="Support">Support</option>
+                      <option value="Engineering">Engineering</option>
+                      <option value="Accounting">Accounting</option>
+                      <option value="Business Development">Business Development</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="offset-1 col-10">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="far fa-envelope"></i>
+                        </div>
+                      </div> 
+                      <input id="formEmail" name="formEmail" placeholder="Enter Email " type="email" required="required" class="form-control">
+                    </div>
+                  </div>
+                </div> 
+                <div class="form-group row">
+                  <div class="offset-4 col-10">
+                    <button name="submit" type="submit" class="btn btn-primary">Add Employee</button>
+                  </div>
                 </div>
               </form>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="editUserModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="editTitle">Edit Employee</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group row">
+                  <div class="offset-1 col-10">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="far fa-address-card"></i>
+                        </div>
+                      </div> 
+                      <input id="formEditFirstName" name="formEditFirstName" placeholder="Enter First Name" type="text" class="form-control" required="required">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row"> 
+                  <div class="offset-1 col-10">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="far fa-address-card"></i>
+                        </div>
+                      </div> 
+                      <input id="formEditLastName" name="formLastName" placeholder="Enter Last Name" type="text" class="form-control" required="required">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row"> 
+                  <div class="offset-1 col-10">
+                    <select id="formEditDept" name="formEditDept" class="custom-select" required="required">
+                      <option value="" disabled selected>Select Department</option>
+                      <option value="Human Resources">HR</option>
+                      <option value="Sales">Sales</option>
+                      <option value="Marketing">Marketing</option>
+                      <option value="Legal">Legal</option>
+                      <option value="Services">Services</option>
+                      <option value="Research and Development">Research and Development</option>
+                      <option value="Product Management">Product Management</option>
+                      <option value="Training">Training</option>
+                      <option value="Support">Support</option>
+                      <option value="Engineering">Engineering</option>
+                      <option value="Accounting">Accounting</option>
+                      <option value="Business Development">Business Development</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="offset-1 col-10">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="far fa-envelope"></i>
+                        </div>
+                      </div> 
+                      <input id="formEditEmail" name="formEditEmail" placeholder="Enter Email " type="email" required="required" class="form-control">
+                    </div>
+                  </div>
+                </div> 
+                <div class="form-group row">
+                  <div class="offset-4 col-10">
+                    <button name="submit" type="submit" class="btn btn-primary">Add Employee</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
           </div>

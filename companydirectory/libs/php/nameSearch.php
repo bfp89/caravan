@@ -34,7 +34,7 @@
 
 	// first query
 
-	$query = 'SELECT * from personnel WHERE firstName or lastName like %' . $_REQUEST['name'] . '%';
+	$query = 'SELECT * FROM personnel WHERE firstName LIKE "%' . $_REQUEST['name'] . '%" OR lastName LIKE "%' . $_REQUEST['name'] . '%"';
 
 	$result = $conn->query($query);
 	
@@ -61,7 +61,7 @@
 
 	}
 
-	// second query
+	// // second query
 
 	$query = 'SELECT id, name from department ORDER BY name';
 
