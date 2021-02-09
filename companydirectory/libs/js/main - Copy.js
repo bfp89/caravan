@@ -9,8 +9,8 @@ $(document).ready(function() {
             console.log(result);
             if (result.status.name == "ok") {
                 $.each(result['data'], function(index) {
-                    var newCard = "<div class='card filter " + result['data'][index].name.replace(/\s+/g, '') + " " + result['data'][index].location.replace(/\s+/g, '') + " " + result['data'][index].lastName + "'><h3 class='name'>" + result['data'][index].lastName + ', <br>' + result['data'][index].firstName + "</h3><p class='dept'>" + result['data'][index].name + "</p><img src='img/employee-icon.png' alt='Profile pic' style='width:25%'><br><a id='email' href='mailto:" + result['data'][index].email + "'><i class='fa fa-envelope'></i>Email</a><br><button id='vDetails' class='btn' type='button' data-toggle='modal' data-target='#details"+index+"'>View details</button></div>";
-                    var newDetails = "<div class='modal fade' id='details"+index+"' tabindex='-1' role='dialog'><div class='modal-dialog' role='document'><div class='modal-content'><div class='modal-header'><h5 class='modal-title'>Employee Details</h5><button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div><div class='modal-body'><div><table class='table table-striped table-hover'><tr><th>Name</th><td>" + result['data'][index].lastName + ", " + result['data'][index].firstName + "</td></tr><tr><th>Department</th><td>" + result['data'][index].name + "</td></tr><tr><th>Location</th><td>" + result['data'][index].location + "</td></tr><tr><th>Email</th><td>" + result['data'][index].email + "</td></tr></table></div></div><div class='modal-footer'><button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button></div></div></div></div>";
+                    var newCard = "<div class='card filter " + result['data'][index].department.replace(/\s+/g, '') + " " + result['data'][index].location.replace(/\s+/g, '') + " " + result['data'][index].lastName + "'><h3 class='name'>" + result['data'][index].lastName + ', <br>' + result['data'][index].firstName + "</h3><p class='dept'>" + result['data'][index].department + "</p><img src='img/employee-icon.png' alt='Profile pic' style='width:25%'><br><a id='email' href='mailto:" + result['data'][index].email + "'><i class='fa fa-envelope'></i>Email</a><br><button id='vDetails' class='btn btn-primary' data-toggle='modal' data-target='#details"+index+"'>View details</button></div>";
+                    var newDetails = "<div class='modal fade' id='details"+index+"' tabindex='-1' role='dialog'><div class='modal-dialog' role='document'><div class='modal-content'><div class='modal-header'><h5 class='modal-title'>Employee Details</h5><button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div><div class='modal-body'><div><table class='table table-striped table-hover'><tr><th>Name</th><td>" + result['data'][index].lastName + ", " + result['data'][index].firstName + "</td></tr><tr><th>Department</th><td>" + result['data'][index].department + "</td></tr><tr><th>Location</th><td>" + result['data'][index].location + "</td></tr><tr><th>Email</th><td>" + result['data'][index].email + "</td></tr></table></div></div><div class='modal-footer'><button type='button' class='btn btn-primary'>Save changes</button><button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button></div></div></div></div>";
                     
                     $("#cards").append(newCard);
                     $("#modals").append(newDetails); 
@@ -28,8 +28,8 @@ $('#nameSearch').click(function() {
         type: 'POST',
         dataType: 'json',
         data: {
-            name: $('#nameInput').val(),
-            id: 0
+            name: $('#nameInput').val()
+            
         },
 
         success: function(result) {
@@ -49,7 +49,8 @@ $('#editSearchBtn').click(function() {
         type: 'POST',
         dataType: 'json',
         data: {
-            name: $('#editSearch').val()
+            name: $('#editSearch').val(),
+            id: $('#depToEdit').val()
         },
 
         success: function(result) {
@@ -57,7 +58,6 @@ $('#editSearchBtn').click(function() {
             if (result.status.name == "ok") {
                 $('#firstNameToEdit').val(result['data']['personnel'][0].firstName);
                 $('#lastNameToEdit').val(result['data']['personnel'][0].lastName);
-
                 $('#depToEdit').val(result['data']['department'][0].name);
                 $('#emailToEdit').val(result['data']['personnel'][0].email);
             }
@@ -92,6 +92,12 @@ $('#submitAdd').click(function() {
             depID: $('#formDept').val()
         },
 
+        // success: function(result) {
+        //     console.log(result);
+        //     if (result.status.name == "ok") {
+                
+        //     }
+        // },
     });
 });
 
@@ -101,12 +107,20 @@ $('#submitAdd').click(function() {
 
 
 
-$('#editDetailsBtn').click(function() {
-    var depSelect = "<select id='depToEdit' name='formEditDept' class='custom-select' required='required'><option value='' disabled selected>Select Department</option><option value='1'>HR</option><option value='2'>Sales</option><option value='3'>Marketing</option><option value='4'>Legal</option><option value='5'>Services</option><option value='6'>Research and Development</option><option value='7'>Product Management</option><option value='8'>Training</option><option value='9'>Support</option><option value='10'>Engineering</option><option value='11'>Accounting</option><option value='12'>Business Development</option></select>"
-    
+$('#editFirstNameBtn').click(function() {
     $('#firstNameToEdit').removeAttr('disabled');
+});
+
+$('#editLastNameBtn').click(function() {
     $('#lastNameToEdit').removeAttr('disabled');
+});
+
+$('#editDepBtn').click(function() {
+    var depSelect = "<select id='formEditDept' name='formEditDept' class='custom-select' required='required'><option value='' disabled selected>Select Department</option><option value='1'>HR</option><option value='2'>Sales</option><option value='3'>Marketing</option><option value='4'>Legal</option><option value='5'>Services</option><option value='6'>Research and Development</option><option value='7'>Product Management</option><option value='8'>Training</option><option value='9'>Support</option><option value='10'>Engineering</option><option value='11'>Accounting</option><option value='12'>Business Development</option></select>"
     $('#depToEdit').replaceWith(depSelect);
+});
+
+$('#editEmailBtn').click(function() {
     $('#emailToEdit').removeAttr('disabled');
 });
 
@@ -114,8 +128,8 @@ $('#allButton').click(function() {
     filterSelection($(this).val());
 });
 
-$('.dropdown-item').on('click', function(event) {
-    filterSelection();
+$('.dropdown-item').click(function() {
+    filterSelection($(this).val());
 });
 
 $('#editUser').on('hide.bs.modal', function (event) {

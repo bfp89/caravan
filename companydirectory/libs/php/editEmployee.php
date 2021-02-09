@@ -1,8 +1,5 @@
 <?php
 
-	// example use from browser
-	// http://localhost/companydirectory/libs/php/getAll.php
-
 	// remove next two lines for production
 	
 	ini_set('display_errors', 'On');
@@ -32,7 +29,10 @@
 
 	}	
 
-	$query = 'SELECT p.lastName, p.firstName, p.jobTitle, p.email, d.name, d.id as department, l.name as location FROM personnel p LEFT JOIN department d ON (d.id = p.departmentID) LEFT JOIN location l ON (l.id = d.locationID) ORDER BY p.lastName, p.firstName, d.name, l.name';
+	// $_REQUEST used for development / debugging. Remember to change to $_POST for production
+
+
+	$query = 'UPDATE personnel SET firstName = "' .  $_REQUEST['firstNameEdit'] . '", lastName = "' . $_REQUEST['lastNameEdit'] . '", departmentID = ' . $_REQUEST['depEdit'] . ', email = "' . $_REQUEST['emailEdit'] . '" WHERE lastName = "' . $_REQUEST['lastName'] . '"';
 
 	$result = $conn->query($query);
 	
@@ -50,20 +50,12 @@
 		exit;
 
 	}
-   
-   	$data = [];
-
-	while ($row = mysqli_fetch_assoc($result)) {
-
-		array_push($data, $row);
-
-	}
 
 	$output['status']['code'] = "200";
 	$output['status']['name'] = "ok";
 	$output['status']['description'] = "success";
 	$output['status']['returnedIn'] = (microtime(true) - $executionStartTime) / 1000 . " ms";
-	$output['data'] = $data;
+	$output['data'] = [];
 	
 	mysqli_close($conn);
 

@@ -59,11 +59,13 @@
 
 		array_push($personnel, $row);
 
-	}
+    }
+    
+    $depID = $personnel[0]['departmentID'];
 
 	// // second query
 
-	$query = 'SELECT id, name from department ORDER BY name';
+	$query = 'SELECT id, name from department WHERE id =' .  $depID . ' ORDER BY name';
 
 	$result = $conn->query($query);
 	

@@ -24,6 +24,10 @@ select {
     right: 10px; 
 }
 
+h5 {
+    text-align: center;
+}
+
 .card {
     display: none;
     padding: 10px;
@@ -57,24 +61,3 @@ select {
     color: white;
     background-color: rgb(119, 115, 118);
 }
-
-#nameDrop {
-    list-style-type: none;
-    padding: 10;
-    margin: 10;
-  }
-  
-  #nameDrop li a {
-    border: 1px solid #ddd;
-    margin-top: -1px;
-    background-color: #f6f6f6;
-    padding: 12px;
-    text-decoration: none;
-    font-size: 18px; 
-    color: black; 
-    display: block; 
-  }
-
-  #nameDrop li a:hover:not(.header) {
-    background-color: #eee;
-  }
