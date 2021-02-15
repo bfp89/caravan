@@ -32,10 +32,9 @@
 
 	}	
 
-	// $_REQUEST used for development / debugging. Remember to change to $_REQUEST for production
+	// $_REQUEST used for development / debugging. Remember to cange to $_POST for production
 
-
-	$query = 'INSERT INTO personnel (firstName, lastName, email, departmentID, jobTitle) VALUES("' . $_REQUEST['firstName'] . '", "' . $_REQUEST["lastName"] . '", "' . $_REQUEST["email"] . '", ' . $_REQUEST["depID"] . ', "")';
+	$query = 'INSERT INTO department (name, locationID) VALUES("' . $_REQUEST['name'] . '",' . $_REQUEST["locationID"] . ')';
 
 	$result = $conn->query($query);
 	

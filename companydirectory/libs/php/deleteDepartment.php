@@ -1,7 +1,8 @@
 <?php
 
 	// example use from browser
-	// http://localhost/companydirectory/libs/php/insertDepartment.php?name=New%20Department&locationID=1
+	// use insertDepartment.php first to create new dummy record and then specify it's id in the command below
+	// http://localhost/companydirectory/libs/php/deleteDepartmentByID.php?id= <id>
 
 	// remove next two lines for production
 	
@@ -32,10 +33,9 @@
 
 	}	
 
-	// $_REQUEST used for development / debugging. Remember to change to $_REQUEST for production
+	// $_REQUEST used for development / debugging. Remember to cange to $_POST for production
 
-
-	$query = 'INSERT INTO personnel (firstName, lastName, email, departmentID, jobTitle) VALUES("' . $_REQUEST['firstName'] . '", "' . $_REQUEST["lastName"] . '", "' . $_REQUEST["email"] . '", ' . $_REQUEST["depID"] . ', "")';
+	$query = 'DELETE FROM department WHERE id = ' . $_REQUEST['id'];
 
 	$result = $conn->query($query);
 	
