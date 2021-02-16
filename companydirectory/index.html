@@ -27,7 +27,7 @@
         <button id="allButton" class="btn active" value="all">
             <img src="favicon.png" width="50" height="50" alt="Home" loading="lazy">
         </button>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -352,33 +352,33 @@
         </div>
       
 
-      <div class="modal fade" id="deleteDept" tabindex="-1" role="dialog" aria-labelledby="deleteDeptModal" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
+        <div class="modal fade" id="deleteDept" tabindex="-1" role="dialog" aria-labelledby="deleteDeptModal" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
 
-            <div class="modal-header">
-              <h3 class="modal-title" id="deleteDeptTitle">Delete Department</h3>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
+              <div class="modal-header">
+                <h3 class="modal-title" id="deleteDeptTitle">Delete Department</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
 
-            <div class="modal-body">
-              <form id="submitDeleteDeptForm">
-                <div class="form-group row"> 
-                  <div class="offset-1 col-8">
-                    <select id="formDeleteDept" class="custom-select" required="required">
-                      <option value="" disabled selected>Select Department to Delete</option>
-                    </select>
+              <div class="modal-body">
+                <form id="submitDeleteDeptForm">
+                  <div class="form-group row"> 
+                    <div class="offset-1 col-8">
+                      <select id="formDeleteDept" class="custom-select" required="required">
+                        <option value="" disabled selected>Select Department to Delete</option>
+                      </select>
+                    </div>
                   </div>
-                </div>
-                <div class="form-group row">
-                  <div class="offset-1 col-8">
-                    <button id="deleteDeptBtn" type="submit" class="btn btn-info">Delete Department</button>
+                  <div class="form-group row">
+                    <div class="offset-1 col-8">
+                      <button id="deleteDeptBtn" type="submit" class="btn btn-info">Delete Department</button>
+                    </div>
                   </div>
-                </div>
-              </form>
-            </div>
+                </form>
+              </div>
             
 
               <div class="modal-footer">
@@ -397,6 +397,83 @@
         <button type="button" class="btn userBtns" id="addlocBtn" data-toggle="modal" data-target="#addLoc"><i class="fas fa-plus-square"></i></button>
         <button type="button" class="btn userBtns" id="deletelocBtn" data-toggle="modal" data-target="#deleteLoc"><i class="fas fa-trash-alt"></i></i></button>
         <br>      
+      </div>
+
+      <div id="locModals">
+        <div class="modal fade" id="addLoc" tabindex="-1" role="dialog" aria-labelledby="addLocModal" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="addLocTitle">Add Location</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form id="submitAddLocForm">
+                  <div class="form-group row">
+                    <div class="offset-1 col-8">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="far fa-address-card"></i>
+                          </div>
+                        </div> 
+                        <input id="formLocName" placeholder="Enter Location Name" type="text" class="form-control" required="required">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="offset-1 col-8">
+                      <button id="submitAddLoc" type="submit" class="btn btn-primary">Add Location</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+
+        <div class="modal fade" id="deleteLoc" tabindex="-1" role="dialog" aria-labelledby="deleteLocModal" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+              <div class="modal-header">
+                <h3 class="modal-title" id="deleteLocTitle">Delete Location</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <div class="modal-body">
+                <form id="submitDeleteLocForm">
+                  <div class="form-group row"> 
+                    <div class="offset-1 col-8">
+                      <select id="formDeleteLoc" class="custom-select" required="required">
+                        <option value="" disabled selected>Select Location to Delete</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="offset-1 col-8">
+                      <button id="deleteLocBtn" type="submit" class="btn btn-info">Delete Location</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
       </div>
 
       <div>

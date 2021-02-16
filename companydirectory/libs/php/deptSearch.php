@@ -89,6 +89,35 @@
 		array_push($location, $row);
 
 	}
+
+	// third query
+
+	$query = 'SELECT firstName, lastName, departmentID FROM personnel order by lastName';
+
+	$result = $conn->query($query);
+	
+	if (!$result) {
+
+		$output['status']['code'] = "400";
+		$output['status']['name'] = "executed";
+		$output['status']['description'] = "query failed";	
+		$output['data'] = [];
+
+		mysqli_close($conn);
+
+		echo json_encode($output); 
+
+		exit;
+
+	}
+	
+		$personnel = [];
+
+	while ($row = mysqli_fetch_assoc($result)) {
+
+		array_push($personnel, $row);
+
+	}
     
 	$output['status']['code'] = "200";
 	$output['status']['name'] = "ok";
@@ -96,6 +125,7 @@
 	$output['status']['returnedIn'] = (microtime(true) - $executionStartTime) / 1000 . " ms";
 	$output['data']['department'] = $department;
 	$output['data']['location'] = $location;
+	$output['data']['personnel'] = $personnel;
 	
 	mysqli_close($conn);
 
