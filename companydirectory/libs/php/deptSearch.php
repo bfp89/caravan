@@ -34,34 +34,6 @@
 
 	// first query
 
-	$query = 'SELECT d.id, d.name, d.locationID, l.name as location FROM department d LEFT JOIN location l ON (l.id = d.locationID) order by id';
-
-	$result = $conn->query($query);
-	
-	if (!$result) {
-
-		$output['status']['code'] = "400";
-		$output['status']['name'] = "executed";
-		$output['status']['description'] = "query failed";	
-		$output['data'] = [];
-
-		mysqli_close($conn);
-
-		echo json_encode($output); 
-
-		exit;
-
-	}
-   
-   	$department = [];
-
-	while ($row = mysqli_fetch_assoc($result)) {
-
-		array_push($department, $row);
-
-    }
-
-	// // second query
 
 	$query = 'SELECT * FROM location ORDER BY id';
 
@@ -90,9 +62,9 @@
 
 	}
 
-	// third query
+	// // second query
 
-	$query = 'SELECT firstName, lastName, departmentID FROM personnel order by lastName';
+	$query = 'SELECT d.id, d.name, d.locationID, l.name as location FROM department d WHERE d.id = ' . $_REQUEST['deptID'] . ' LEFT JOIN location l ON (l.id = d.locationID) ORDER by lastName';
 
 	$result = $conn->query($query);
 	
@@ -123,7 +95,6 @@
 	$output['status']['name'] = "ok";
 	$output['status']['description'] = "success";
 	$output['status']['returnedIn'] = (microtime(true) - $executionStartTime) / 1000 . " ms";
-	$output['data']['department'] = $department;
 	$output['data']['location'] = $location;
 	$output['data']['personnel'] = $personnel;
 	

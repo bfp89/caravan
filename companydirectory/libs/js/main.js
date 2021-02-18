@@ -9,26 +9,15 @@ $(document).ready(function() {
         success: function(result) {
             console.log(result);
             if (result.status.name == "ok") {
-                $.each(result['data'], function(index) {
-                    var newCard1 = `<div class='card filter dept${result['data'][index].department} loc${result['data'][index].locationID} ${result['data'][index].lastName}'><div><h4 class='name'>${result['data'][index].lastName}, <br>${result['data'][index].firstName}</h4><p class='dept'>${result['data'][index].name}</p><img src='img/employee-icon.png' alt='Profile pic' style='width:25%'><br><a id='email' href='mailto:${result['data'][index].email}'><i class='fa fa-envelope'></i>Email</a><br><button id='vDetails' class='btn userBtns' type='button' data-toggle='modal' data-target='#details${index}'>View details</button></div>`;
-                    var newDetails = "<div class='modal fade' id='details"+index+"' tabindex='-1' role='dialog'><div class='modal-dialog' role='document'><div class='modal-content'><div class='modal-header'><h5 class='modal-title'>Employee Details</h5><button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div><div class='modal-body'><div><table class='table table-striped table-hover'><tr><th>Name</th><td>" + result['data'][index].lastName + ", " + result['data'][index].firstName + "</td></tr><tr><th>Department</th><td>" + result['data'][index].name + "</td></tr><tr><th>Location</th><td>" + result['data'][index].location + "</td></tr><tr><th>Email</th><td>" + result['data'][index].email + "</td></tr></table></div></div><div class='modal-footer'><button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button></div></div></div></div>";
+                $.each(result['data']['personnel'], function(index) {
+                    var newCard1 = `<div class='card'><div><h4 class='name'>${result['data']['personnel'][index].lastName}, <br>${result['data']['personnel'][index].firstName}</h4><p class='dept'>${result['data']['personnel'][index].name}</p><img src='img/employee-icon.png' alt='Profile pic' style='width:25%'><br><a id='email' href='mailto:${result['data']['personnel'][index].email}'><i class='fa fa-envelope'></i>Email</a><br><button id='vDetails' class='btn userBtns' type='button' data-toggle='modal' data-target='#details${index}'>View details</button></div>`;
+                    var newDetails = "<div class='modal fade' id='details"+index+"' tabindex='-1' role='dialog'><div class='modal-dialog' role='document'><div class='modal-content'><div class='modal-header'><h5 class='modal-title'>Employee Details</h5><button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div><div class='modal-body'><div><table class='table table-striped table-hover'><tr><th>Name</th><td>" + result['data']['personnel'][index].lastName + ", " + result['data']['personnel'][index].firstName + "</td></tr><tr><th>Department</th><td>" + result['data']['personnel'][index].name + "</td></tr><tr><th>Location</th><td>" + result['data']['personnel'][index].location + "</td></tr><tr><th>Email</th><td>" + result['data']['personnel'][index].email + "</td></tr></table></div></div><div class='modal-footer'><button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button></div></div></div></div>";
                     $("#empCards").append(newCard1);
                     $("#empModals").append(newDetails); 
 
 
                 });
-                $("#allButton").trigger("click");
-            };
-        },
-    });
 
-    $.ajax({
-        url: "libs/php/deptSearch.php",
-        type: 'POST',
-        dataType: 'json',
-        
-        success: function(result) {
-            if (result.status.name == "ok") {
                 $.each(result['data']['department'], function(index1) {
                     $('#selectDept').append($("<option>", {
                         value: result.data.department[index1].id,
@@ -42,43 +31,60 @@ $(document).ready(function() {
                         value: result.data.department[index1].id,
                         text: result.data.department[index1].name
                     }));
-                    var newCard2 = `<div class='card filter dept${result['data']['department'][index1].id} loc${result['data']['department'][index1].locationID}'><h4 class='name'>${result['data']['department'][index1].name}</h4><p class='loc'>${result['data']['department'][index1].location}</p><img src='img/users-group.png' alt='Profile pic' style='width:25%'><br><button id='empList' class='btn userBtns' type='button' data-toggle='modal' data-target='#empList${index1}'>Employee List</button></div>`;
+                    var newCard2 = `<div class='card'><h4 class='name'>${result['data']['department'][index1].name}</h4><p class='loc'>${result['data']['department'][index1].location}</p><img src='img/users-group.png' alt='Profile pic' style='width:25%'><br><button id='empList' class='btn userBtns' type='button' data-toggle='modal' data-target='#empList${index1}'>Employee List</button></div>`;
                     var empList = "<div class='modal fade' id='empList"+index1+"' tabindex='-1' role='dialog'><div class='modal-dialog' role='document'><div class='modal-content empListModals'><div class='modal-header'><h5 class='modal-title'>Employee List</h5><button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div><div class='modal-body'><div><table id='empListTable"+index1+"'class='table table-striped table-hover'><tr><th>Name</th></tr></table></div></div><div class='modal-footer'><button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button></div></div></div></div>";
                     $("#deptCards").append(newCard2);
                     $("#deptModals").append(empList);
 
                     $.each(result['data']['personnel'], function(index2) {
-                        if (result.data.personnel[index2].departmentID == index1+1) {
+                        if (result.data.personnel[index2].department == index1+1) {
                             var tableData = `<tr><td>${result.data.personnel[index2].lastName}, ${result.data.personnel[index2].firstName}</td></tr>`;
                             $(`#empListTable${index1}`).append(tableData);
                         }
                     });
+                    $.each(result['data']['department'], function(index3) {
+                        if (result.data.department[index3].locationID == index1+1) {
+                            var tableData = `<tr><td>${result.data.department[index3].name}</td></tr>`;
+                            $(`#deptListTable${index1}`).append(tableData);
+                        }
+                    });
                 });
+                $("#allButton").trigger("click");
+            };
+        },
+    });
+
+    $.ajax({
+        url: "libs/php/deptSearch.php",
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            deptID: 0
+        },
+        
+        success: function(result) {
+            if (result.status.name == "ok") {
                 
-                $.each(result['data']['location'], function(index3) {
+                
+                $.each(result['data']['location'], function(index) {
                     $('#selectLoc').append($("<option>", {
-                        value: result.data.location[index3].id,
-                        text: result.data.location[index3].name
+                        value: result.data.location[index].id,
+                        text: result.data.location[index].name
                     })); 
                     $('#formLoc').append($("<option>", {
-                        value: result.data.location[index3].id,
-                        text: result.data.location[index3].name
+                        value: result.data.location[index].id,
+                        text: result.data.location[index].name
                     })); 
                     $('#formDeleteLoc').append($("<option>", {
-                        value: result.data.location[index3].id,
-                        text: result.data.location[index3].name
+                        value: result.data.location[index].id,
+                        text: result.data.location[index].name
                     }));
-                    var newCard3 = `<div class='card filter loc${result['data']['location'][index3].id}'><h4 class='name'>${result['data']['location'][index3].name}</h4><img src='img/globe.png' alt='Profile pic' style='width:25%'><br></br><button id='locDetails' class='btn' type='button' data-toggle='modal' data-target='#deptList${index3}'>Department List</button></div>`;
-                    var deptList = `<div class='modal fade' id='deptList${index3}' tabindex='-1' role='dialog'><div class='modal-dialog' role='document'><div class='modal-content deptListModals'><div class='modal-header'><h5 class='modal-title'>Department List</h5><button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div><div class='modal-body'><div><table id='deptListTable${index3}'class='table table-striped table-hover'><tr><th>Departments at location</th></tr></table></div></div><div class='modal-footer'><button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button></div></div></div></div>`;
+                    var newCard3 = `<div class='card'><h4 class='name'>${result['data']['location'][index].name}</h4><img src='img/globe.png' alt='Profile pic' style='width:25%'><br></br><button id='locDetails' class='btn' type='button' data-toggle='modal' data-target='#deptList${index}'>Department List</button></div>`;
+                    var deptList = `<div class='modal fade' id='deptList${index}' tabindex='-1' role='dialog'><div class='modal-dialog' role='document'><div class='modal-content deptListModals'><div class='modal-header'><h5 class='modal-title'>Department List</h5><button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div><div class='modal-body'><div><table id='deptListTable${index}'class='table table-striped table-hover'><tr><th>Departments at location</th></tr></table></div></div><div class='modal-footer'><button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button></div></div></div></div>`;
                     $("#locCards").append(newCard3);
                     $("#locModals").append(deptList);
 
-                    $.each(result['data']['department'], function(index4) {
-                        if (result.data.department[index4].locationID == index3+1) {
-                            var tableData = `<tr><td>${result.data.department[index4].name}</td></tr>`;
-                            $(`#deptListTable${index3}`).append(tableData);
-                        }
-                    });
+                    
                 });
             };
         },
@@ -131,13 +137,14 @@ $(document).ready(function() {
 
 
 $('#nameSearch').click(function() {
+    $('#selectDept').prop('selectedIndex',0);
+    $('#selectLoc').prop('selectedIndex',0);
     $.ajax({
         url: "libs/php/nameSearch.php",
         type: 'POST',
         dataType: 'json',
         data: {
             name: $('#nameInput').val(),
-            id: 0
         },
 
         success: function(result) {
@@ -153,10 +160,15 @@ $('#nameSearch').click(function() {
 
 $('#selectDept').change(function() {
     var selected = $(this).val();
+    $('#selectLoc').prop('selectedIndex',0);
     $.ajax({
         url: "libs/php/deptSearch.php",
         type: 'POST',
         dataType: 'json',
+        data: {
+            locID: $('#selectLoc').val(),
+            deptID: $('#selectDept').val()
+        },
 
         success: function(result) {
             console.log(result);
@@ -174,10 +186,15 @@ $('#selectDept').change(function() {
 
 $('#selectLoc').change(function() {
     var selected = $(this).val();
+    $('#selectDept').prop('selectedIndex',0);
     $.ajax({
         url: "libs/php/deptSearch.php",
         type: 'POST',
         dataType: 'json',
+        data: {
+            locID: $('#selectLoc').val(),
+            deptID: $('#selectDept').val()
+        },
 
         success: function(result) {
             console.log(result);
@@ -252,10 +269,74 @@ $('#deleteSearchBtn').click(function() {
     });
 });
 
+$('#submitDeleteDeptForm').submit(function(e) {
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+    $.ajax({
+        url: "libs/php/countEmployees.php",
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            deptID: $('#formDeleteDept').val()
+        },
+        success: function(result) {
+            console.log(result.data.employees[0].employees);
+            console.log(result);
+            if (result.status.name == "ok") {
+                if (result.data.employees[0].employees == 0){
+                    
+                        $.ajax({
+                            url: "libs/php/deleteDepartment.php",
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                id: $('#formDeleteDept').val()
+                            }                    
+                        });
+                } else {
+                    alert("Cannot delete");
+                };
+            };
+        },
+    });
+});
+
+$('#submitDeleteLocForm').submit(function(e) {
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+    $.ajax({
+        url: "libs/php/countDepartments.php",
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            locID: $('#formDeleteLoc').val()
+        },
+        success: function(result) {
+            console.log(result.data.departments[0].departments);
+            console.log(result);
+            if (result.status.name == "ok") {
+                if (result.data.departments[0].departments == 0){
+                    
+                        $.ajax({
+                            url: "libs/php/deleteLocation.php",
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                id: $('#formDeleteLoc').val()
+                            }                    
+                        });
+                } else {
+                    alert("This location has existing departments within it, and cannot be deleted. <br>Please remove any existing departments first.")
+                };
+            };
+        },
+    });
+});
+
+
 $('#submitDeleteEmpForm').submit(function(e) {
     e.stopPropagation();
     e.stopImmediatePropagation();
-    alert("Are you sure you want to delete this employee permenantly?")
     $.ajax({
         url: "libs/php/deleteEmployee.php",
         type: 'POST',
@@ -298,20 +379,7 @@ $('#submitAddDeptForm').submit(function(e) {
     });
 });
 
-$('#submitDeleteDeptForm').submit(function(e) {
-    e.stopPropagation();
-    e.stopImmediatePropagation();
-    alert("Are you sure you want to delete this department permenantly?")
-    $.ajax({
-        url: "libs/php/deleteDepartment.php",
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            id: $('#formDeleteDept').val()
-        }
 
-    });
-});
 
 $('#submitAddLocForm').submit(function(e) {
     e.stopPropagation();
@@ -346,7 +414,7 @@ $('#submitDeleteLocForm').submit(function(e) {
 
 $('#editDetailsBtn').click(function() {
     $.ajax({
-        url: "libs/php/deptSearch.php",
+        url: "libs/php/getAll.php",
         type: 'POST',
         dataType: 'json',
         
@@ -369,13 +437,18 @@ $('#editDetailsBtn').click(function() {
 });
 
 $('#allButton').click(function() {
-    filterSelection($(this).val());
+    $('#empDiv').show();
+    $('#deptDiv').hide();
+    $('#locDiv').hide();
     $('#selectDept').prop('selectedIndex',0);
     $('#selectLoc').prop('selectedIndex',0);
+    $('#selectView').prop('selectedIndex',0);
 });
 
 $('#selectView').change(function(){
     var selected = $(this).val();
+    $('#selectDept').prop('selectedIndex',0);
+    $('#selectLoc').prop('selectedIndex',0);
     if (selected == 1){
         $('#empDiv').show();
         $('#deptDiv').hide();
@@ -389,7 +462,6 @@ $('#selectView').change(function(){
         $('#deptDiv').hide();
         $('#locDiv').show();
     }
-    $("#allButton").trigger("click");
 });
 
 
@@ -404,56 +476,56 @@ $('#addUser').on('hide.bs.modal', function (event) {
 
 
 
-function filterSelection(c) {
-    var x, i;
-    x = document.getElementsByClassName("filter");
-    if (c == "all") c = "";
-    for (i = 0; i < x.length; i++) {
-      removeClass(x[i], "show");
-      if (x[i].className.indexOf(c) > -1) addClass(x[i], "show");
-    }
-  }
+// function filterSelection(c) {
+//     var x, i;
+//     x = document.getElementsByClassName("filter");
+//     if (c == "all") c = "";
+//     for (i = 0; i < x.length; i++) {
+//       removeClass(x[i], "show");
+//       if (x[i].className.indexOf(c) > -1) addClass(x[i], "show");
+//     }
+//   }
   
-  // Show filtered elements
-  function addClass(element, name) {
-    var i, arr1, arr2;
-    arr1 = element.className.split(" ");
-    arr2 = name.split(" ");
-    for (i = 0; i < arr2.length; i++) {
-      if (arr1.indexOf(arr2[i]) == -1) {
-        element.className += " " + arr2[i];
-      }
-    }
-  }
+//   // Show filtered elements
+//   function addClass(element, name) {
+//     var i, arr1, arr2;
+//     arr1 = element.className.split(" ");
+//     arr2 = name.split(" ");
+//     for (i = 0; i < arr2.length; i++) {
+//       if (arr1.indexOf(arr2[i]) == -1) {
+//         element.className += " " + arr2[i];
+//       }
+//     }
+//   }
   
-  // Hide elements that are not selected
-  function removeClass(element, name) {
-    var i, arr1, arr2;
-    arr1 = element.className.split(" ");
-    arr2 = name.split(" ");
-    for (i = 0; i < arr2.length; i++) {
-      while (arr1.indexOf(arr2[i]) > -1) {
-        arr1.splice(arr1.indexOf(arr2[i]), 1);
-      }
-    }
-    element.className = arr1.join(" ");
-  };
+//   // Hide elements that are not selected
+//   function removeClass(element, name) {
+//     var i, arr1, arr2;
+//     arr1 = element.className.split(" ");
+//     arr2 = name.split(" ");
+//     for (i = 0; i < arr2.length; i++) {
+//       while (arr1.indexOf(arr2[i]) > -1) {
+//         arr1.splice(arr1.indexOf(arr2[i]), 1);
+//       }
+//     }
+//     element.className = arr1.join(" ");
+//   };
   
 
-  function nameInput() {
-    // Declare variables
-    var input, filter, ul, li, a, i, txtValue;
-    input = document.getElementById('nameInput');
-    filter = input.value.toUpperCase();
-    ul = document.getElementById("nameDrop");
-    li = ul.getElementsByTagName('li');
-    for (i = 0; i < li.length; i++) {
-      a = li[i].getElementsByTagName("a")[0];
-      txtValue = a.textContent || a.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        li[i].style.display = "block";
-      } else {
-        li[i].style.display = "none";
-      }
-    }
-  }
+//   function nameInput() {
+//     // Declare variables
+//     var input, filter, ul, li, a, i, txtValue;
+//     input = document.getElementById('nameInput');
+//     filter = input.value.toUpperCase();
+//     ul = document.getElementById("nameDrop");
+//     li = ul.getElementsByTagName('li');
+//     for (i = 0; i < li.length; i++) {
+//       a = li[i].getElementsByTagName("a")[0];
+//       txtValue = a.textContent || a.innerText;
+//       if (txtValue.toUpperCase().indexOf(filter) > -1) {
+//         li[i].style.display = "block";
+//       } else {
+//         li[i].style.display = "none";
+//       }
+//     }
+//   }

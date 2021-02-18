@@ -25,14 +25,14 @@ h5 {
 }
 
 .card {
-    display: none;
+    display: inline-block;
     padding: 20px;
     margin-top: 20px;
     margin-right: 40px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     text-align: center;
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 275px;
 }
 
 
