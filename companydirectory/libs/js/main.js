@@ -307,8 +307,7 @@ $('#deleteSearchBtn').click(function() {
         },
     });
 });
-
-$('#submitDeleteDeptForm').submit(function(e) {
+$('#deptDeleteCheck').click(function() {
     $.ajax({
         url: "libs/php/countEmployees.php",
         type: 'POST',
@@ -319,24 +318,31 @@ $('#submitDeleteDeptForm').submit(function(e) {
         success: function(result) {        
             if (result.status.name == "ok") {
                 if (result.data.employees[0].employees == 0){
-                    
-                        $.ajax({
-                            url: "libs/php/deleteDepartment.php",
-                            type: 'POST',
-                            dataType: 'json',
-                            data: {
-                                id: $('#formDeleteDept').val()
-                            }                    
-                        });
+                    bootbox.alert("There are no employees i this department, it is safe to delete.", function() {
+                        $('#confirmDeleteDeptBtn').prop("disabled", false);
+                    }) 
                 } else {
-                    alert("Cannot delete");
+                    bootbox.alert("There are existing employees in this department, please remove those employees first before attempting to delete.");
                 };
-            };
-        },
+            }
+        }
+    });
+});
+$('#formDeleteDept').change(function() {
+    $('#confirmDeleteDeptBtn').prop("disabled", true);
+});
+$('#submitDeleteDeptForm').submit(function(e) {
+    $.ajax({
+        url: "libs/php/deleteDepartment.php",
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            id: $('#formDeleteDept').val()
+        }                    
     });
 });
 
-$('#submitDeleteLocForm').submit(function() {
+$('#locDeleteCheck').click(function() {
     $.ajax({
         url: "libs/php/countDepartments.php",
         type: 'POST',
@@ -344,24 +350,30 @@ $('#submitDeleteLocForm').submit(function() {
         data: {
             locID: $('#formDeleteLoc').val()
         },
-        success: function(result) {
-        
+        success: function(result) {        
             if (result.status.name == "ok") {
                 if (result.data.departments[0].departments == 0){
-                    
-                        $.ajax({
-                            url: "libs/php/deleteLocation.php",
-                            type: 'POST',
-                            dataType: 'json',
-                            data: {
-                                id: $('#formDeleteLoc').val()
-                            }                    
-                        });
+                    bootbox.alert("There are no departments at this location, it is safe to delete.", function() {
+                        $('#confirmDeleteLocBtn').prop("disabled", false);
+                    }) 
                 } else {
-                    alert("This location has existing departments within it, and cannot be deleted. <br>Please remove any existing departments first.")
+                    bootbox.alert("There are existing department(s) at this location, please remove those department(s) first before attempting to delete.");
                 };
             };
-        },
+        }
+    });
+});
+$('#formDeleteLoc').change(function() {
+    $('#confirmDeleteLocBtn').prop("disabled", true);
+});
+$('#submitDeleteLocForm').submit(function() {
+    $.ajax({
+        url: "libs/php/deleteLocation.php",
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            id: $('#formDeleteLoc').val()
+        }                    
     });
 });
 
@@ -425,22 +437,6 @@ $('#submitAddLocForm').submit(function(e) {
     });
 });
 
-$('#submitDeleteLocForm').submit(function(e) {
-    e.stopPropagation();
-    e.stopImmediatePropagation();
-    alert("Are you sure you want to delete this location permenantly?")
-    $.ajax({
-        url: "libs/php/deleteLocation.php",
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            id: $('#formDeleteLoc').val()
-        }
-
-    });
-});
-
-
 
 $('#editDetailsBtn').click(function() {
     $.ajax({
@@ -473,7 +469,7 @@ $('#allButton').click(function() {
         url: "libs/php/getAll.php",
         type: 'POST',
         dataType: 'json',
-        beforeSend: function () { // Before we send the request, remove the .hidden class from the spinner and default to inline-block.
+        beforeSend: function () {
             $('#loader').removeClass('hidden')
         },
         
@@ -512,7 +508,7 @@ $('#allButton').click(function() {
                 });
             }
         },
-        complete: function () { // Set our complete callback, adding the .hidden class and hiding the spinner.
+        complete: function () {
             $('#loader').addClass('hidden')
         }
     });

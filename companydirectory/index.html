@@ -281,7 +281,7 @@
                     </div>
                     <div class="form-group row">
                       <div class="offset-4 col-8">
-                        <button id="deleteEmpBtn" name="submit" type="submit" class="btn btn-primary">Submit</button>
+                        <button id="deleteEmpBtn" name="submit" type="submit" class="btn btn-primary">Delete</button>
                       </div>
                     </div>
                   </form>
@@ -382,10 +382,12 @@
                   </div>
                   <div class="form-group row">
                     <div class="offset-1 col-8">
-                      <button id="confirmDeleteDeptBtn" type="submit" class="btn btn-info">Delete Department</button>
+                      
+                      <button id="confirmDeleteDeptBtn" type="submit" class="btn btn-info" disabled>Delete Department</button>
                     </div>
                   </div>
                 </form>
+                <button id="deptDeleteCheck" class="btn btn-secondary offset-1" type="button">Can I delete?</button>
               </div>
             
 
@@ -474,10 +476,11 @@
                   </div>
                   <div class="form-group row">
                     <div class="offset-1 col-8">
-                      <button id="deleteLocBtn" type="submit" class="btn btn-info">Delete Location</button>
+                      <button id="confirmDeleteLocBtn" type="submit" class="btn btn-info" disabled>Delete Location</button>
                     </div>
                   </div>
                 </form>
+                <button id="locDeleteCheck" class="btn btn-secondary offset-1" type="button">Can I delete?</button>
               </div>
             
 
