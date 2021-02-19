@@ -1,13 +1,17 @@
-
+$(window).on('load', function () {    
+    if ($('#preloader').length) {      
+        $('#preloader').delay(100).fadeOut('slow', function () {        
+            $(this).remove();      
+        });    
+    }
+});
 $(document).ready(function() {
 
     $.ajax({
         url: "libs/php/getAll.php",
         type: 'POST',
         dataType: 'json',
-        beforeSend: function () { 
-            $('#loader').removeClass('hidden')
-        },
+        
         success: function(result) {
         
             if (result.status.name == "ok") {
@@ -76,9 +80,7 @@ $(document).ready(function() {
                 
             };
         },
-        complete: function () {
-            $('#loader').addClass('hidden')
-        }
+        
     });
 
     $('#empDiv').show();
@@ -469,9 +471,6 @@ $('#allButton').click(function() {
         url: "libs/php/getAll.php",
         type: 'POST',
         dataType: 'json',
-        beforeSend: function () {
-            $('#loader').removeClass('hidden')
-        },
         
         success: function(result) {
             $('#empCards').html("");
@@ -508,9 +507,7 @@ $('#allButton').click(function() {
                 });
             }
         },
-        complete: function () {
-            $('#loader').addClass('hidden')
-        }
+        
     });
 });
 

@@ -64,51 +64,47 @@ p {
     text-align: center;
 }
 
-.lds-dual-ring.hidden {
-    display: none;
+#preloader {  
+    position: fixed;  
+    top: 0;  
+    left: 0;  
+    right: 0;  
+    bottom: 0;  
+    z-index: 9999;  
+    overflow: hidden;  
+    background: #fff;
 }
-
-/*Add an overlay to the entire page blocking any further presses to buttons or other elements.*/
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: rgba(0,0,0,.8);
-    z-index: 999;
-    opacity: 1;
-    transition: all 0.5s;
+#preloader:before {  
+    content: "";  
+    position: fixed;  
+    top: calc(50% - 30px);  
+    left: calc(50% - 30px);  
+    border: 6px solid #f2f2f2;  
+    border-top: 6px solid #56829e ;  
+    border-radius: 50%;  
+    width: 60px;  
+    height: 60px;  
+    -webkit-animation: animate-preloader 1s linear infinite;  
+    animation: animate-preloader 1s linear infinite;
 }
-
-/*Spinner Styles*/
-.lds-dual-ring {
-    display: inline-block;
-    width: 160px;
-    height: 160px;
-}
-.lds-dual-ring:after {
-    content: " ";
-    display: block;
-    width: 128px;
-    height: 128px;
-    margin: 5% auto;
-    border-radius: 50%;
-    border: 6px solid #fff;
-    border-color: #fff transparent #fff transparent;
-    animation: lds-dual-ring 1.2s linear infinite;
-}
-@keyframes lds-dual-ring {
-    0% {
-        transform: rotate(0deg);
+@-webkit-keyframes animate-preloader {
+    0% {    
+        -webkit-transform: rotate(0deg);    
+        transform: rotate(0deg);  
+    }  
+    100% {    
+        -webkit-transform: rotate(360deg);    
+        transform: rotate(360deg);  
     }
-    100% {
+}
+@keyframes animate-preloader {  
+    0% {    
+        -webkit-transform: rotate(0deg);    
+        transform: rotate(0deg);  
+    }  100% {    
+        -webkit-transform: rotate(360deg);    
         transform: rotate(360deg);
     }
-}
-
-#loader {
-    width:1000px; margin:0 auto;
 }
 
 #deleteEmp {
