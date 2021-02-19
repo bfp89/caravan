@@ -318,7 +318,7 @@ $('#deptDeleteCheck').click(function() {
         success: function(result) {        
             if (result.status.name == "ok") {
                 if (result.data.employees[0].employees == 0){
-                    bootbox.alert("There are no employees i this department, it is safe to delete.", function() {
+                    bootbox.alert("There are no employees in this department, it is safe to delete.", function() {
                         $('#confirmDeleteDeptBtn').prop("disabled", false);
                     }) 
                 } else {
@@ -518,6 +518,7 @@ $('#selectView').change(function(){
     var selected = $(this).val();
     $('#selectDept').prop('selectedIndex',0);
     $('#selectLoc').prop('selectedIndex',0);
+    $('#allButton').trigger("click");
     if (selected == 1){
         $('#empDiv').show();
         $('#deptDiv').hide();
@@ -530,6 +531,7 @@ $('#selectView').change(function(){
         $('#empDiv').hide();
         $('#deptDiv').hide();
         $('#locDiv').show();
+
     }
 });
 
