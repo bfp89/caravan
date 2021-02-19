@@ -1,7 +1,7 @@
 <?php
 
 	// example use from browser
-	// http://localhost/companydirectory/libs/php/getPersonnel.php?id=1
+	// http://localhost/companydirectory/libs/php/getAll.php
 
 	// remove next two lines for production
 	
@@ -31,10 +31,8 @@
 		exit;
 
 	}	
-
-	// first query
-
-	$query = 'SELECT COUNT(id) as employees FROM personnel WHERE departmentID=' . $_POST['deptID'];
+	//first		
+	$query = 'SELECT p.lastName, p.firstName, p.jobTitle, p.email, d.name, d.id as department, l.name as location, l.id as locationID FROM personnel p LEFT JOIN department d ON (d.id = p.departmentID) LEFT JOIN location l ON (l.id = d.locationID) WHERE locationID = ' . $_POST['locID'] .' ORDER BY p.lastName, p.firstName, d.name, l.name';
 
 	$result = $conn->query($query);
 	
@@ -53,23 +51,50 @@
 
 	}
    
-   	$employees = [];
+   	$personnel = [];
 
 	while ($row = mysqli_fetch_assoc($result)) {
 
-		array_push($employees, $row);
+		array_push($personnel, $row);
 
-    }
+	}
+
+    //second
+	$query = 'SELECT * FROM location WHERE id = ' . $_POST['locID'] . ' ORDER BY id';
+
+	$result = $conn->query($query);
+	
+	if (!$result) {
+
+		$output['status']['code'] = "400";
+		$output['status']['name'] = "executed";
+		$output['status']['description'] = "query failed";	
+		$output['data'] = [];
+
+		mysqli_close($conn);
+
+		echo json_encode($output); 
+
+		exit;
+
+	}
    
+   	$location = [];
 
+	while ($row = mysqli_fetch_assoc($result)) {
 
+		array_push($location, $row);
+
+	}
 
 	$output['status']['code'] = "200";
 	$output['status']['name'] = "ok";
 	$output['status']['description'] = "success";
 	$output['status']['returnedIn'] = (microtime(true) - $executionStartTime) / 1000 . " ms";
-	$output['data']['employees'] = $employees;
-	
+	$output['data']['personnel'] = $personnel;
+    $output['data']['location'] = $location;
+
+
 	mysqli_close($conn);
 
 	echo json_encode($output); 

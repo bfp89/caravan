@@ -29,10 +29,8 @@
 
 	}	
 
-	// $_REQUEST used for development / debugging. Remember to change to $_POST for production
 
-
-	$query = 'UPDATE personnel SET firstName = "' .  $_REQUEST['firstNameEdit'] . '", lastName = "' . $_REQUEST['lastNameEdit'] . '", departmentID = ' . $_REQUEST['depEdit'] . ', email = "' . $_REQUEST['emailEdit'] . '" WHERE lastName = "' . $_REQUEST['lastName'] . '"';
+	$query = 'UPDATE personnel SET firstName = "' .  $_POST['firstNameEdit'] . '", lastName = "' . $_POST['lastNameEdit'] . '", departmentID = ' . $_POST['depEdit'] . ', email = "' . $_POST['emailEdit'] . '" WHERE lastName = "' . $_POST['lastName'] . '"';
 
 	$result = $conn->query($query);
 	

@@ -23,7 +23,7 @@
 	</head>
 
 	<body>
-    <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top container-fluid">
+    <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
         <button id="allButton" class="btn active" value="all">
             <img src="favicon.png" width="50" height="50" alt="Home" loading="lazy">
         </button>
@@ -64,11 +64,13 @@
     </nav>
     <br>
     <div id="empDiv" class="container-fluid">
-      <div id="empCards">
-        <button type="button" class="btn userBtns" id="addUserBtn" data-toggle="modal" data-target="#addUser"><i class="fa fa-user-plus"></i></button>
+      
+      <button type="button" class="btn userBtns" id="addUserBtn" data-toggle="modal" data-target="#addUser"><i class="fa fa-user-plus"></i></button>
         <button type="button" class="btn userBtns" id="editUserBtn" data-toggle="modal" data-target="#editUser"><i class="fas fa-user-edit"></i></button>
         <button type="button" class="btn userBtns" id="deleteUserBtn" data-toggle="modal" data-target="#deleteUser"><i class="fas fa-trash-alt"></i></button>
-        <br>      
+        <br> 
+      <div id="empCards">
+        <div id="loader" class="lds-dual-ring"></div>
       </div>
       <div>
         <a id="back-to-top1" href="#" class="btn btn-light btn-lg back-to-top" role="button"><i class="fas fa-chevron-up"></i></a>
@@ -292,14 +294,20 @@
             </div>
           </div>
         </div>
+
+        <div id="empCardModals">
+
+        </div>
+
       </div>
     </div>
 
-    <div id="deptDiv">
+    <div id="deptDiv" class="container-fluid">
+      <button type="button" class="btn userBtns" id="addDeptBtn" data-toggle="modal" data-target="#addDept"><i class="fas fa-plus-square"></i></button>
+      <button type="button" class="btn userBtns" id="deleteDeptBtn" data-toggle="modal" data-target="#deleteDept"><i class="fas fa-trash-alt"></i></button>
+      <br>
       <div id="deptCards">
-        <button type="button" class="btn userBtns" id="addDeptBtn" data-toggle="modal" data-target="#addDept"><i class="fas fa-plus-square"></i></button>
-        <button type="button" class="btn userBtns" id="deleteDeptBtn" data-toggle="modal" data-target="#deleteDept"><i class="fas fa-trash-alt"></i></button>
-        <br>      
+              
       </div>
 
       <div>
@@ -388,15 +396,21 @@
             </div>
           </div>
         </div>
+
+        <div id="deptCardModals">
+
+        </div>
+
       </div>
     </div>
 
 
-    <div id="locDiv">
+    <div id="locDiv" class="container-fluid">
+      <button type="button" class="btn userBtns" id="addlocBtn" data-toggle="modal" data-target="#addLoc"><i class="fas fa-plus-square"></i></button>
+      <button type="button" class="btn userBtns" id="deletelocBtn" data-toggle="modal" data-target="#deleteLoc"><i class="fas fa-trash-alt"></i></i></button>
+      <br> 
       <div id="locCards">
-        <button type="button" class="btn userBtns" id="addlocBtn" data-toggle="modal" data-target="#addLoc"><i class="fas fa-plus-square"></i></button>
-        <button type="button" class="btn userBtns" id="deletelocBtn" data-toggle="modal" data-target="#deleteLoc"><i class="fas fa-trash-alt"></i></i></button>
-        <br>      
+             
       </div>
 
       <div id="locModals">
@@ -474,6 +488,11 @@
             </div>
           </div>
         </div>
+
+        <div id="locCardModals">
+
+        </div>
+
       </div>
 
       <div>

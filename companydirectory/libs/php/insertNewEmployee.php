@@ -35,7 +35,7 @@
 	// $_REQUEST used for development / debugging. Remember to change to $_REQUEST for production
 
 
-	$query = 'INSERT INTO personnel (firstName, lastName, email, departmentID, jobTitle) VALUES("' . $_REQUEST['firstName'] . '", "' . $_REQUEST["lastName"] . '", "' . $_REQUEST["email"] . '", ' . $_REQUEST["depID"] . ', "")';
+	$query = 'INSERT INTO personnel (firstName, lastName, email, departmentID, jobTitle) VALUES("' . $_POST['firstName'] . '", "' . $_POST["lastName"] . '", "' . $_POST["email"] . '", ' . $_POST["depID"] . ', "")';
 
 	$result = $conn->query($query);
 	

@@ -24,6 +24,10 @@ h5 {
     text-align: center;
 }
 
+p {
+    margin: auto;
+}
+
 .card {
     display: inline-block;
     padding: 20px;
@@ -32,7 +36,7 @@ h5 {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     text-align: center;
     width: 200px;
-    height: 275px;
+    height: auto;
 }
 
 
@@ -56,23 +60,55 @@ h5 {
     display: none;
 }
 
-.empListModals {
+.listModals {
     text-align: center;
 }
 
-#empCards {
-    margin: 30px;
-    width: 100%;
+.lds-dual-ring.hidden {
+    display: none;
 }
 
-#deptCards {
-    margin: 30px;
+/*Add an overlay to the entire page blocking any further presses to buttons or other elements.*/
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100vh;
+    background: rgba(0,0,0,.8);
+    z-index: 999;
+    opacity: 1;
+    transition: all 0.5s;
 }
 
-#locCards {
-    margin: 30px;
-    width: 100%;
+/*Spinner Styles*/
+.lds-dual-ring {
+    display: inline-block;
+    width: 160px;
+    height: 160px;
+}
+.lds-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 128px;
+    height: 128px;
+    margin: 5% auto;
+    border-radius: 50%;
+    border: 6px solid #fff;
+    border-color: #fff transparent #fff transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#loader {
+    width:1000px; margin:0 auto;
 }
 
 #deleteEmp {

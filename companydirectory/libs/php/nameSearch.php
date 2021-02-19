@@ -34,7 +34,7 @@
 
 	// first query
 
-	$query = 'SELECT * FROM personnel WHERE firstName LIKE "%' . $_REQUEST['name'] . '%" OR lastName LIKE "%' . $_REQUEST['name'] . '%"';
+	$query = 'SELECT p.lastName, p.firstName, p.id, p.jobTitle, p.email, d.name, d.id as department, l.name as location, l.id as locationID FROM personnel p LEFT JOIN department d ON (d.id = p.departmentID) LEFT JOIN location l ON (l.id = d.locationID) WHERE firstName LIKE "%' . $_POST['name'] . '%" OR lastName LIKE "%' . $_REQUEST['name'] . '%"';
 
 	$result = $conn->query($query);
 	
@@ -61,7 +61,7 @@
 
     }
     
-    $depID = $personnel[0]['departmentID'];
+    $depID = $personnel[0]['department'];
 
 	// // second query
 
