@@ -1,0 +1,519 @@
+<!doctype html>
+
+<html lang="en">
+
+	<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,  user-scalable=no" />
+
+        <link rel="icon" href="favicon.png">
+
+        <link rel="stylesheet" 
+        href="libs/css/bootstrap.min.css"/>
+
+        <link rel="stylesheet" 
+        href="libs/css/faAll.css"/>
+
+        <link rel="stylesheet" 
+        href="libs/css/companyDir.css"/>        
+
+
+		<title>Company Directory</title>
+
+	</head>
+
+	<body>
+    <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+        <button id="allButton" class="btn active" value="all">
+            <img src="favicon.png" width="50" height="50" alt="Home" loading="lazy">
+        </button>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item col-3">
+              <select id="selectDept" class="form-control" type="text">
+                <option value="" disabled selected>Select Department</option>
+              </select>
+            </li>
+            <li class="nav-item col-3">
+              <select id="selectLoc" class="form-control " type="text">
+                <option value="" disabled selected>Select Location</option>
+              </select>
+            </li>
+            
+            <div class="input-group mb-3 col-5">
+              <input id="nameInput" type="text" class="form-control" placeholder="Search by Name.." aria-label="Search by Name" aria-describedby="nameSearch">
+              <div class="input-group-append">
+                <button id="nameSearch" class="btn btn-outline-secondary" type="button">Search</button>
+              </div>
+            </div>
+          
+
+            <div class="mb-3 col-4">
+              <select id="selectView"  class="form-control" type="text">
+                <option id="empView" value="1" selected>Employee View</option>
+                <option id="deptView" value="2">Department View</option>
+                <option id="locView" value="3">Location View</option>
+              </select>
+            </div>
+          </ul> 
+        </div>
+    </nav>
+    <br>
+    <div id="empDiv" class="container-fluid">
+      
+      <button type="button" class="btn userBtns" id="addUserBtn" data-toggle="modal" data-target="#addUser"><i class="fa fa-user-plus"></i></button>
+        <button type="button" class="btn userBtns" id="editUserBtn" data-toggle="modal" data-target="#editUser"><i class="fas fa-user-edit"></i></button>
+        <button type="button" class="btn userBtns" id="deleteUserBtn" data-toggle="modal" data-target="#deleteUser"><i class="fas fa-trash-alt"></i></button>
+        <br> 
+      <div id="empCards">
+        <div id="preloader"></div>
+      </div>
+      <div>
+        <a id="back-to-top1" href="#" class="btn btn-light btn-lg back-to-top" role="button"><i class="fas fa-chevron-up"></i></a>
+      </div>
+      
+
+      <div id="empModals">
+        <div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="addTitle">Add Employee</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form id="submitAddForm">
+                  <div class="form-group row">
+                    <div class="offset-1 col-8">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="far fa-address-card"></i>
+                          </div>
+                        </div> 
+                        <input id="formFirstName" name="formFirstName" placeholder="Enter First Name" type="text" class="form-control" required="required">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row"> 
+                    <div class="offset-1 col-8">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="far fa-address-card"></i>
+                          </div>
+                        </div> 
+                        <input id="formLastName" name="formLastName" placeholder="Enter Last Name" type="text" class="form-control" required="required">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row"> 
+                    <div class="offset-1 col-8">
+                      <select id="formDept" name="formDept" class="custom-select" required="required">
+                        <option value="" disabled selected>Select Department</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="offset-1 col-8">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="far fa-envelope"></i>
+                          </div>
+                        </div> 
+                        <input id="formEmail" name="formEmail" placeholder="Enter Email " type="email" required="required" class="form-control">
+                      </div>
+                    </div>
+                  </div> 
+                  <div class="form-group row">
+                    <div class="offset-1 col-8">
+                      <button id="submitAdd" name="submit" type="submit" class="btn btn-primary">Add Employee</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+
+        <div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="editUserModal" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+              <div class="modal-header">
+                <h3 class="modal-title" id="editTitle">Edit Employee</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            <div id="editUserModalBody">
+              <div class="modal-body">
+                <div class="offset-1 col-10 input-group mb-3">
+                  <input id="editSearch" name="editSearch" placeholder="Search Employee name to edit.." type="text" class="form-control" required="required">
+                  <div class="input-group-append">
+                    <button id="editSearchBtn" class="input-group-text">Search</button>
+                  </div>
+                </div>
+                <form>
+                  <h5>Current Details</h5>
+                  <div class="form-group row">
+                    <div class="offset-1 col-10">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="far fa-address-card"></i>
+                          </div>
+                        </div> 
+                        <input id="firstNameToEdit" name="firstNameToEdit" placeholder="First Name" type="text" class="form-control" disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row"> 
+                    <div class="offset-1 col-10">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="far fa-address-card"></i>
+                          </div>
+                        </div> 
+                        <input id="lastNameToEdit" name="lastNameToEdit" placeholder="Last Name" type="text" class="form-control" disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row"> 
+                    <div id="formEditDept" class="offset-1 col-10">
+                      <div class="input-group">
+                        <input id="depToEdit" name="depToEdit" placeholder="Department" type="text" class="form-control" disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="offset-1 col-10">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="far fa-envelope"></i>
+                          </div>
+                        </div> 
+                        <input id="emailToEdit" name="emailToEdit" placeholder="Email" type="email" class="form-control" disabled>
+                      </div>
+                    </div>
+                  </div> 
+                  <div class="form-group row">
+                    <div class="offset-1 col-8">
+                      <button id="submitEdit" name="submitEdit" type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>  
+              <div class="modal-footer">
+                <button id="editDetailsBtn" type="button" class="btn btn-info">Edit Employee Details</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>  
+          </div>
+        </div>
+
+        <div class="modal fade" id="deleteUser" tabindex="-1" role="dialog" aria-labelledby="deleteUserModal" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+              <div class="modal-header">
+                <h3 class="modal-title" id="deleteTitle">Delete Employee</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div id="deleteUserModalBody">
+                <div class="modal-body">
+                  <div class="offset-1 col-10 input-group mb-3">
+                    <input id="deleteSearch" placeholder="Search Employee name to delete.." type="text" class="form-control" required="required">
+                    <div class="input-group-append">
+                      <button id="deleteSearchBtn" type="button" class="input-group-text">Search</button>
+                    </div>
+                  </div>
+                  <form id="submitDeleteEmpForm">
+                    <div class="form-group row">
+                      <div class="offset-1 col-10">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text">
+                              <i class="fa fa-address-card"></i>
+                            </div>
+                          </div> 
+                          <input id="formFirstNameToDelete" type="text" class="form-control" disabled>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row"> 
+                      <div class="offset-1 col-10">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text">
+                              <i class="fa fa-address-card"></i>
+                            </div>
+                          </div> 
+                          <input id="formLastNameToDelete" type="text" class="form-control" disabled>
+                        </div>
+                      </div>
+                    </div> 
+                    <div class="form-group row"> 
+                      <div id="formEditDept" class="offset-1 col-10">
+                        <div class="input-group">
+                          <input id="empDepToDelete" placeholder="Department" type="text" class="form-control" disabled>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="hiddenDiv">
+                      <input id="hiddenID">
+                    </div>
+                    <div class="form-group row">
+                      <div class="offset-4 col-8">
+                        <button id="deleteEmpBtn" name="submit" type="submit" class="btn btn-primary">Delete</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>  
+              <div class="modal-footer">
+                
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="empCardModals">
+
+        </div>
+
+      </div>
+    </div>
+
+    <div id="deptDiv" class="container-fluid">
+      <button type="button" class="btn userBtns" id="addDeptBtn" data-toggle="modal" data-target="#addDept"><i class="fas fa-plus-square"></i></button>
+      <button type="button" class="btn userBtns" id="deleteDeptBtn" data-toggle="modal" data-target="#deleteDept"><i class="fas fa-trash-alt"></i></button>
+      <br>
+      <div id="deptCards">
+              
+      </div>
+
+      <div>
+        <a id="back-to-top2" href="#" class="btn btn-light btn-lg back-to-top" role="button"><i class="fas fa-chevron-up"></i></a>
+      </div>
+
+      <div id="deptModals">
+        <div class="modal fade" id="addDept" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="addDeptTitle">Add Department</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form id="submitAddDeptForm">
+                  <div class="form-group row">
+                    <div class="offset-1 col-8">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="far fa-address-card"></i>
+                          </div>
+                        </div> 
+                        <input id="formDeptName" placeholder="Enter Department Name" type="text" class="form-control" required="required">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row"> 
+                    <div class="offset-1 col-8">
+                      <select id="formLoc" class="custom-select" required="required">
+                        <option value="" disabled selected>Select Location</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="offset-1 col-8">
+                      <button id="submitAddDept" type="submit" class="btn btn-primary">Add Department</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+
+        <div class="modal fade" id="deleteDept" tabindex="-1" role="dialog" aria-labelledby="deleteDeptModal" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+              <div class="modal-header">
+                <h3 class="modal-title" id="deleteDeptTitle">Delete Department</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <div class="modal-body">
+                <form id="submitDeleteDeptForm">
+                  <div class="form-group row"> 
+                    <div class="offset-1 col-8">
+                      <select id="formDeleteDept" class="custom-select" required="required">
+                        <option value="" disabled selected>Select Department to Delete</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="offset-1 col-8">
+                      
+                      <button id="confirmDeleteDeptBtn" type="submit" class="btn btn-info" disabled>Delete Department</button>
+                    </div>
+                  </div>
+                </form>
+                <button id="deptDeleteCheck" class="btn btn-secondary offset-1" type="button">Can I delete?</button>
+              </div>
+            
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div id="deptCardModals">
+
+        </div>
+
+      </div>
+    </div>
+
+
+    <div id="locDiv" class="container-fluid">
+      <button type="button" class="btn userBtns" id="addlocBtn" data-toggle="modal" data-target="#addLoc"><i class="fas fa-plus-square"></i></button>
+      <button type="button" class="btn userBtns" id="deletelocBtn" data-toggle="modal" data-target="#deleteLoc"><i class="fas fa-trash-alt"></i></i></button>
+      <br> 
+      <div id="locCards">
+             
+      </div>
+
+      <div id="locModals">
+        <div class="modal fade" id="addLoc" tabindex="-1" role="dialog" aria-labelledby="addLocModal" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="addLocTitle">Add Location</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form id="submitAddLocForm">
+                  <div class="form-group row">
+                    <div class="offset-1 col-8">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="far fa-address-card"></i>
+                          </div>
+                        </div> 
+                        <input id="formLocName" placeholder="Enter Location Name" type="text" class="form-control" required="required">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="offset-1 col-8">
+                      <button id="submitAddLoc" type="submit" class="btn btn-primary">Add Location</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+
+        <div class="modal fade" id="deleteLoc" tabindex="-1" role="dialog" aria-labelledby="deleteLocModal" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+              <div class="modal-header">
+                <h3 class="modal-title" id="deleteLocTitle">Delete Location</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <div class="modal-body">
+                <form id="submitDeleteLocForm">
+                  <div class="form-group row"> 
+                    <div class="offset-1 col-8">
+                      <select id="formDeleteLoc" class="custom-select" required="required">
+                        <option value="" disabled selected>Select Location to Delete</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="offset-1 col-8">
+                      <button id="confirmDeleteLocBtn" type="submit" class="btn btn-info" disabled>Delete Location</button>
+                    </div>
+                  </div>
+                </form>
+                <button id="locDeleteCheck" class="btn btn-secondary offset-1" type="button">Can I delete?</button>
+              </div>
+            
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div id="locCardModals">
+
+        </div>
+
+      </div>
+
+      <div>
+        <a id="back-to-top3" href="#" class="btn btn-light btn-lg back-to-top" role="button"><i class="fas fa-chevron-up"></i></a>
+      </div>
+
+    </div>
+        <script src="libs/js/jquery-3.5.1.min.js">
+        </script>
+        <script src="libs/vendor/popper.min.js" >
+        </script>
+        <script src="libs/vendor/bootstrap.min.js" >
+        </script>
+        <script src="libs/vendor/faAll.js">
+        </script>
+        <script src="libs/vendor/bootbox.js">
+        </script>
+        <script src="libs/js/main.js">
+        </script>
+	</body>
+</html>

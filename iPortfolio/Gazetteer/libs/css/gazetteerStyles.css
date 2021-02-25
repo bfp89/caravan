@@ -1,0 +1,100 @@
+body {
+    padding: 0;
+    margin: 0;    
+    
+}
+#mapid {
+height: calc(100vh - 62.4px);
+width: 100vw;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+
+h2 {
+    opacity: 0.3;
+}
+
+h5 {
+    text-align: left;
+    width: 100%;    
+}
+
+h5#modalLabel {
+    width: 100%;
+}
+
+select {
+    position: absolute; 
+    top: 10px; 
+    right: 10px; 
+}
+
+header {
+   color: darkslategrey;
+   text-align: center;
+   z-index: 1;
+}
+
+th {
+    padding: 5px;
+}
+td {
+    padding: 5px;
+}
+
+button.close {
+    width: 20%;
+}
+
+/*@media (min-width: 576px) { 
+    (0,3,0)
+}*/
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+
+.modals {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.modal-footer {
+    display: inline-block;
+}
+
+.star{
+    font-size: 1.5em;
+  } 
+
+#whichCountry {
+    width: auto;
+}
+
+.imgFlag {
+    border: .5px solid;
+    box-shadow: 1.5px 2px 1.5px #050505;
+}
+
+
+#navLabel {
+    padding: 10px;
+    margin: 10px;
+}
+
+#reportrange {
+    background: #fff; 
+    cursor: pointer; 
+    padding: 5px 10px; 
+    border: 1px solid #ccc; 
+    width: 100%;
+}

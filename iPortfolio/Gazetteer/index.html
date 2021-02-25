@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1,  user-scalable=no" />
+
+        <link rel="icon" href="favicon.png">
+
+        <link rel="stylesheet" 
+        href="libs/css/bootstrap.min.css"/>
+
+        <link rel="stylesheet" 
+        href="libs/css/leaflet.css"/>
+
+        <link rel="stylesheet" 
+        href="libs/css/easyButton.css"/>
+
+        <link rel = "stylesheet"
+        type = "text/css"
+        href = "libs/css/gazetteerStyles.css" />
+
+        <link rel="stylesheet" 
+        href="libs/css/faAll.css"/>
+
+        <link rel="stylesheet" 
+        href="libs/css/leaflet.extra-markers.min.css"/>
+
+        <link rel="stylesheet"
+        href="libs/css/spin.css"/>
+
+
+    </head>
+
+    <body>
+        <header>
+          <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+            <h2>Gazetteer</h2>                
+                <select id="whichCountry" class="form-control" type="text">
+                    <option id="options"></option>
+                 </select>
+            </nav>
+        </header>
+
+        
+
+        <div id="mapid" class="container-fluid">
+        </div>
+
+
+
+        <!-- Modal 1 -->
+        <div class="modal fade" id="travelInfo" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="false">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Travel Info
+                    <img align="right" class="imgFlag" src="">
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                
+                </div>
+                <div class="modal-body modals">
+                    <div>
+			
+                        <table class="table table-hover table-striped">
+            
+                            <tr>
+                                <td align="left">
+                                    <strong>Languages spoken
+                                </td>
+                                <td align="right" id="txtLang">
+                                    
+                                </td>
+            
+                            </tr> 
+
+                            <tr>
+                                <td align="left">
+                                    <strong>National Currency
+                                </td>
+                                <td align="right" id="txtCurr">
+                                    
+                                </td>
+            
+                            </tr>
+
+                            <tr>
+                                <td align="left">
+                                   <strong> To call, add
+                                </td>
+                                <td align="right" id="txtCall">
+                                    
+                                </td>
+            
+                            </tr>
+            
+                        </table>
+            
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button id="closeButton" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                
+                </div>
+            </div>
+            </div>
+        </div>
+
+         <!-- Modal 2 -->
+         <div class="modal fade" id="geogInfo" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="false">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Geography Facts
+                    <img align="right" class="imgFlag" src="">
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                
+                </div>
+                <div class="modal-body modals">
+                    <div>
+			
+                        <table class="table table-hover table-striped">
+            
+                            <tr>
+                                <td align="left">
+                                   <strong> Capital City
+                                </td>
+                                <td align="right" id="txtCapital">
+                                    
+                                </td>
+            
+                            </tr>
+
+                            <tr>
+                                <td align="left">
+                                 <strong>   Population
+                                </td>
+                                <td align="right" id="txtPop">
+                                    
+                                </td>
+            
+                            </tr>
+
+                            <tr>
+                                <td align="left">
+                                  <strong>  Area in SqM
+                                </td>
+                                <td align="right" id="txtArea">
+                                    
+                                </td>
+            
+                            </tr>
+
+                            <tr>
+                                <td align="left">
+                                    <strong>Continent/Region
+                                </td>
+                                <td align="right" id="txtCont">
+                                    
+                                </td>
+            
+                            </tr>
+
+                            
+                            <tr>
+                                <td align="left">
+                                   <strong> Borders with
+                                </td>
+                                <td align="right" id="txtBorder">
+                                    
+                                </td>
+            
+                            </tr>
+            
+                        </table>
+            
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button id="closeButton2" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                
+                </div>
+            </div>
+            </div>
+        </div>
+         <!-- Modal 3 -->
+         <div class="modal fade" id="factsInfo" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="false">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Country Facts
+                    <img align="right"class="imgFlag" src="">
+                    </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                
+                </div>
+                <div class="modal-body modals">
+                    <div>
+			
+                        <table class="table table-hover table-striped">
+                            
+                            <tr>
+                                <td align="left">
+                                    <strong>National income</strong>
+                                </td>
+                                <td align="right" id="txtIncome">
+                                    
+                                </td>
+            
+                            </tr>
+
+                            <tr id=eu class="">
+                                <td align="left">
+                                    <strong>Member of the EU</strong>
+                                </td>
+                                <td align="right" id="txtEu">
+                                    
+                                </td>
+            
+                            </tr>
+                            
+            
+                        </table>
+            
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button id="closeButton3" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <!--Modal 4-->
+        <div class="modal fade" id="holidaysInfo" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="false">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">National Holidays
+                    <img align="right" class="imgFlag" src="">
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                
+                </div>
+                <div class="modal-body modals">
+                    <div>
+            
+                        
+                        <table id=myTable class="table table-hover table-striped">                         
+
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button id="closeButton4" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <!--Modal 5-->
+        <div class="modal fade" id="newsInfo" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="false">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Top News Headlines Today
+                        <img align="right" class="imgFlag" src="">
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    
+                    </div>
+                    <div class="modal-body modals">
+                        <div>
+                
+                            <table id="myTable2" class="table table-hover table-striped">
+                                
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="closeButton5" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Modal 6-->
+        <div class="modal fade" id="covidInfo" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="false">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content ">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Total Live Covid-19 Cases
+                        <img align="right" class="imgFlag" src="">
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    
+                    </div>
+                    <div class="modal-body modals">
+                        <div>
+                
+                            <table class="table table-hover table-striped">
+
+                                <tr>
+                                    <td align="left">
+                                        <strong>Total Confirmed Covid cases</strong>
+                                    </td>
+                                    <td align="right" id="txtCases">
+                                        
+                                    </td>
+                
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="closeButton6" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Modal 6-->
+        <div class="modal fade" id="weatherInfo" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="false">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content ">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">3 day forecast
+                        <img align="right" class="imgFlag" src="">
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    
+                    </div>
+                    <div class="modal-body modals">
+                        <div>
+                
+                            <table id="table2" class="table table-hover table-striped">
+                                <thead  class="thead-light">
+                                    <tr>
+                                        <th>
+                                            <strong>Today</strong>
+                                        </th>
+                                        <th>
+                                            <strong>Tomorrow</strong>
+                                        </th>
+                                        <th id=day3>
+                                            
+                                        </th>
+                    
+                                    </tr>
+                                </thead>
+
+                                <tr>
+                                    <td>
+                                        <img id=weatherIcon1 src="">
+                                    </td>
+                                    <td>
+                                        <img id=weatherIcon2 src="">
+                                    </td>
+                                    <td>
+                                        <img id=weatherIcon3 src="">
+                                    </td>
+                                    
+                                </tr>
+
+                                <tr>
+                                    <td id=weatherDesc1>
+                                        
+                                    </td>
+                                    <td id=weatherDesc2>
+                                        
+                                    </td>
+                                    <td id=weatherDesc3>
+                                        
+                                </tr>
+                                <tr>
+                                    <td id=maxTemp1>
+                                        
+                                    </td>
+                                    <td id=maxTemp2>
+                                        
+                                    </td>
+                                    <td  id=maxTemp3>
+                                        
+                                </tr>
+
+                                <tr>
+                                    <td  id=minTemp1>
+                                        
+                                    </td>
+                                    <td  id=minTemp2>
+                                        
+                                    </td>
+                                    <td  id=minTemp3>
+                                        
+                                </tr>
+
+                                <tr>
+                                    <td  id=sunrise1>
+                                        
+                                    </td>
+                                    <td  id=sunrise2>
+                                        
+                                    </td>
+                                    <td  id=sunrise3>
+                                        
+                                </tr>
+
+                                <tr>
+                                    <td  id=sunset1>
+                                        
+                                    </td>
+                                    <td  id=sunset2>
+                                        
+                                    </td>
+                                    <td  id=sunset3>
+                                        
+                                </tr>
+
+                                
+                                
+
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="closeButton7" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            
+        <script src="libs/js/jquery-3.5.1.min.js">
+        </script>
+
+        <script src="libs/vendor/leaflet.js">
+        </script>
+
+        <script src="libs/vendor/bootstrap.min.js" >
+        </script>
+        
+        <script src="libs/vendor/faAll.js">
+        </script>
+
+        <script src="libs/vendor/easyButton.js">
+        </script>
+
+        <script src="libs/vendor/leaflet.extra-markers.min.js">
+        </script>
+
+        <script src="libs/vendor/spin.js">
+        </script>
+
+        <script src="libs/vendor/leaflet.spin.js">
+        </script>
+
+        <script src="libs/js/main.js">
+        </script>
+        
+        
+    </body>
+</html>
