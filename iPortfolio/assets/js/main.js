@@ -190,4 +190,18 @@
     aos_init();
   });
 
+  $('#submitForm').submit(function(){
+    $.ajax({
+      url: "libs/php/contactForm.php",
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        name: $('#name').val(),
+        email: $('#email').val()
+      }
+      
+    });
+  });
+  
+
 })(jQuery);
