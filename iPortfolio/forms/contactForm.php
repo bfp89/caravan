@@ -25,15 +25,15 @@ $mail->Port = 465;
 //Whether to use SMTP authentication
 $mail->SMTPAuth = true;
 //Username to use for SMTP authentication
-$mail->Username = 'ben***@hotm*******';
+$mail->Username = 'benp1*************';
 //Password to use for SMTP authentication
-$mail->Password = '**********';
+$mail->Password = 'Te********';
 //Set who the message is to be sent from
-$mail->setFrom('cont***@be************', 'Ben Penny');
+$mail->setFrom('conta*****************', 'Ben Penny');
 //Set an alternative reply-to address
-$mail->addReplyTo('ben***@hotm*******', 'Ben Penny');
+$mail->addReplyTo('benp1*************', 'Ben Penny');
 //Set who the message is to be sent to
-$mail->addAddress('ben***@hotm*******', 'Ben Penny');
+$mail->addAddress('benp1*************', 'Ben Penny');
 //Set the subject line
 $mail->Subject = 'PHPMailer SMTP test';
 //Read an HTML message body from an external file, convert referenced images to embedded,
